@@ -16,5 +16,9 @@ struct astro{
 struct observador{
     float theta;    //coordenadas polares
     float phi;
-    float raio;
+    float velocidade;
+    float xpos;
+    float ypos;
+    float zpos;
+    int upz;
 };
