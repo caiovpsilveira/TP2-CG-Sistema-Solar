@@ -11,13 +11,13 @@
 
 #include "headers/definicoes.h"
 #include "headers/structs.h"
+#include "headers/funcoes_desenho.h"
+#include "headers/funcoes_diversas.h"
 #include "headers/iluminacao.h"
 #include "headers/funcoes_astros.h"
 #include "headers/funcoes_observador.h"
-#include "headers/funcoes_desenho.h"
-#include "headers/funcoes_diversas.h"
 
-int tela, simul_pausada;
+int tela, simul_pausada, aux_pause;
 int larg_janela, alt_janela;
 int xMouse, yMouse;
 GLfloat ang_perspec, fAspect;
@@ -26,10 +26,13 @@ struct observador obs;
 struct astro vet_astros[TAM_VET_ASTROS];
 
 void setup(){   //estados do glut que nao serao alterados ao longo da execucao
+
+    inicializarTexturas(vet_astros);
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glEnable(GL_DEPTH_TEST);
-	glShadeModel(GL_SMOOTH);
-    glEnable(GL_CULL_FACE);
+	glShadeModel(GL_SMOOTH);    //sombreamento
+    glEnable(GL_CULL_FACE); //nao desenhar de dentro do objeto
     glCullFace(GL_BACK);
 }
 
@@ -150,11 +153,14 @@ void teclaPressionada(int key, int x, int y){
     case 27: //esc
         if(tela==TELA_PLANETAS){
             tela=TELA_PAUSE_MENU;
+            aux_pause = simul_pausada;
             simul_pausada=1;
         }
         else if(tela==TELA_PAUSE_MENU){
             glutWarpPointer(larg_janela/2,alt_janela/2);
-            simul_pausada=0;
+            if(!aux_pause){    //retornar ao estado antes de ir para o menu
+                simul_pausada=0;
+            }
             tela=TELA_PLANETAS;
         }
         break;
@@ -211,7 +217,7 @@ int main(int argc, char** argv)
     glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(600, 600);
     glutInitWindowPosition(600, 100);
 
     glutCreateWindow("tp2 teste");
