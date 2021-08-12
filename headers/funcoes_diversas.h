@@ -54,3 +54,10 @@ void inicializarTexturas(struct astro * vet_astros){
         vet_astros[i].textura.id = carregaTextura(vet_astros[i].textura.nome_arquivo);
     }
 }
+
+void inicializaVetEstados(int * vet_estados){
+    int i;
+    for(i=0;i<TAM_VET_ESTADOS;i++){
+        vet_estados[i]=0;
+    }
+}

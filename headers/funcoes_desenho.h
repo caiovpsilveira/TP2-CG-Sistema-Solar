@@ -16,7 +16,7 @@ void solidSphere(int radius, int stacks, int columns){
     gluDeleteQuadric(quadObj);
 }
 
-void desenhaEixos(){
+void desenhaEixosOrdenados(){
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glDisable(GL_LIGHTING);
     glLineWidth(2.0);

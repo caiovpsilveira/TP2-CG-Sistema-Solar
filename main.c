@@ -20,10 +20,19 @@
 int tela, simul_pausada, aux_pause;
 int larg_janela, alt_janela;
 int xMouse, yMouse;
+int vet_estados[TAM_VET_ESTADOS];
 GLfloat ang_perspec, fAspect;
 
 struct observador obs;
 struct astro vet_astros[TAM_VET_ASTROS];
+
+void habilita(int estado){
+    vet_estados[estado] = 1;
+}
+
+void desabilita(int estado){
+    vet_estados[estado] = 0;
+}
 
 void setup(){   //estados do glut que nao serao alterados ao longo da execucao
 
@@ -34,6 +43,9 @@ void setup(){   //estados do glut que nao serao alterados ao longo da execucao
 	glShadeModel(GL_SMOOTH);    //sombreamento
     glEnable(GL_CULL_FACE); //nao desenhar de dentro do objeto
     glCullFace(GL_BACK);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. Essa funcao os coloca em um estado inicial e pode ser usada para reiniciar
@@ -41,8 +53,14 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     tela = TELA_PLANETAS;
     simul_pausada=0;
     inicializaIluminacao();
+    inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
     inicializaObservador(&obs);
+
+    //temporario: ideal seria colocar uma tecla pra alternar
+    habilita(EIXO_ROT);
+    habilita(INC_ORBITAL);
+    habilita(OBLIQ_ORBITA);
 }
 
 void desenhaMinhaCena(){
@@ -51,8 +69,8 @@ void desenhaMinhaCena(){
     switch(tela){
         case TELA_PLANETAS:
             glutSetCursor(GLUT_CURSOR_NONE);
-            desenhaEixos();
-            desenhaAstros(vet_astros);
+            desenhaEixosOrdenados();
+            desenhaAstros(vet_astros, vet_estados);
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
@@ -90,9 +108,7 @@ void redimensionar(int width, int height){
     glLoadIdentity();
     gluPerspective(ang_perspec, fAspect, 0.5, 1000);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(obs.xpos, obs.ypos, obs.zpos, obs.xpos+sin(obs.phi)*cos(obs.theta),obs.ypos+sin(obs.phi)*sin(obs.theta),obs.zpos+cos(obs.phi), 0,0, obs.upz);
+    atualizarObservador(&obs);
 }
 
 void teclaPressionada(int key, int x, int y){
@@ -167,10 +183,7 @@ void teclaPressionada(int key, int x, int y){
     default:
         break;
     }
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(obs.xpos, obs.ypos, obs.zpos, obs.xpos+sin(obs.phi)*cos(obs.theta),obs.ypos+sin(obs.phi)*sin(obs.theta),obs.zpos+cos(obs.phi), 0,0, obs.upz);
-    glutPostRedisplay();
+    atualizarObservador(&obs);
 }
 
 void posicionaCamera(int x, int y) {
@@ -183,10 +196,7 @@ void posicionaCamera(int x, int y) {
         obs.phi -= (float)(yMouse - alt_janela/2)/500;
         limitarAngulosObservador(&obs);
         corrigirUpVectorObservador(&obs);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        gluLookAt(obs.xpos, obs.ypos, obs.zpos, obs.xpos+sin(obs.phi)*cos(obs.theta),obs.ypos+sin(obs.phi)*sin(obs.theta),obs.zpos+cos(obs.phi), 0,0, obs.upz);
-        glutPostRedisplay();
+        atualizarObservador(&obs);
     }
 }
 
@@ -201,10 +211,7 @@ void rodaMouse(int button, int dir, int x, int y){
             obs.zpos -= obs.velocidade;
         }
     }
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(obs.xpos, obs.ypos, obs.zpos, obs.xpos+sin(obs.phi)*cos(obs.theta),obs.ypos+sin(obs.phi)*sin(obs.theta),obs.zpos+cos(obs.phi), 0,0, obs.upz);
-    glutPostRedisplay();
+    atualizarObservador(&obs);
 }
 
 // função principal

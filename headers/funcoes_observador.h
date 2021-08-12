@@ -32,3 +32,10 @@ void corrigirUpVectorObservador(struct observador * obs){
         obs->upz=1;
     }
 }
+
+void atualizarObservador(struct observador * obs){
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(obs->xpos, obs->ypos, obs->zpos, obs->xpos+sin(obs->phi)*cos(obs->theta),obs->ypos+sin(obs->phi)*sin(obs->theta),obs->zpos+cos(obs->phi), 0,0, obs->upz);
+    glutPostRedisplay();
+}
