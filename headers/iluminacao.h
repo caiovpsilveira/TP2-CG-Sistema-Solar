@@ -1,4 +1,4 @@
-inicializaIluminacao(){
+int inicializaIluminacao(){
 
     float matShine[] = {50.0};                       // expoente especular (shininess)
     float matAmbAndDif[] = {1.0, 1.0, 1.0, 1.0};    // cor ambiente e difusa: branca

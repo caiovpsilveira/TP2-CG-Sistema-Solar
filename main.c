@@ -4,6 +4,9 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 #include <math.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -11,6 +14,7 @@
 
 #include "headers/definicoes.h"
 #include "headers/structs.h"
+#include "headers/declaracao_funcoes.h"
 #include "headers/funcoes_desenho.h"
 #include "headers/funcoes_diversas.h"
 #include "headers/iluminacao.h"
@@ -88,7 +92,7 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
     }
 
     glutPostRedisplay();
-    glutTimerFunc(33, atualizaCena, 0); // por quê 33? 1000/33 = 30fps, 16:60
+    glutTimerFunc(33, atualizaCena, 0); // por quï¿½ 33? 1000/33 = 30fps, 16:60
 }
 
 void redimensionar(int width, int height){
@@ -111,7 +115,7 @@ void redimensionar(int width, int height){
     atualizarObservador(&obs);
 }
 
-void teclaPressionada(int key, int x, int y){
+void teclaPressionada(unsigned char key, int x, int y){
 
     float vetorDiretor[3] = {sin(obs.phi)*cos(obs.theta), sin(obs.phi)*sin(obs.theta), cos(obs.phi)};
     normalizarVetor3D(vetorDiretor);
@@ -214,7 +218,7 @@ void rodaMouse(int button, int dir, int x, int y){
     atualizarObservador(&obs);
 }
 
-// função principal
+// funï¿½ï¿½o principal
 int main(int argc, char** argv)
 {
     imprimirInstrucoesConsole();
