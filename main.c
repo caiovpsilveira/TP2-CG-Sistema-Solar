@@ -4,30 +4,28 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
 #include <math.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <SOIL/SOIL.h>
 
 #include "headers/definicoes.h"
+//#include "headers/prototipos.h"
 #include "headers/structs.h"
-#include "headers/declaracao_funcoes.h"
 #include "headers/funcoes_desenho.h"
 #include "headers/funcoes_diversas.h"
 #include "headers/iluminacao.h"
 #include "headers/funcoes_astros.h"
 #include "headers/funcoes_observador.h"
 
+int obs_atual, astro_atual; //indices da camera
 int tela, simul_pausada, aux_pause;
 int larg_janela, alt_janela;
 int xMouse, yMouse;
 int vet_estados[TAM_VET_ESTADOS];
 GLfloat ang_perspec, fAspect;
 
-struct observador obs;
+struct observador vet_obs[TAM_VET_OBS];
 struct astro vet_astros[TAM_VET_ASTROS];
 
 void habilita(int estado){
@@ -53,13 +51,15 @@ void setup(){   //estados do glut que nao serao alterados ao longo da execucao
 }
 
 void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. Essa funcao os coloca em um estado inicial e pode ser usada para reiniciar
+    obs_atual = CAM_CIMA;
+    astro_atual = 0;
     ang_perspec = 45;
     tela = TELA_PLANETAS;
     simul_pausada=0;
     inicializaIluminacao();
     inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
-    inicializaObservador(&obs);
+    inicializaObservadores(vet_obs);
 
     //temporario: ideal seria colocar uma tecla pra alternar
     habilita(EIXO_ROT);
@@ -90,9 +90,13 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
     if(!simul_pausada){
         movimentaAstros(vet_astros);
     }
+    if(obs_atual == CAM_ACOMPANHA){
+        atualizaCamAcompanha(vet_astros, &vet_obs[obs_atual], astro_atual, vet_estados);
+        atualizarObservador(vet_obs[obs_atual]);
+    }
 
     glutPostRedisplay();
-    glutTimerFunc(33, atualizaCena, 0); // por quï¿½ 33? 1000/33 = 30fps, 16:60
+    glutTimerFunc(33, atualizaCena, 0); // por quê 33? 1000/33 = 30fps, 16:60
 }
 
 void redimensionar(int width, int height){
@@ -112,12 +116,14 @@ void redimensionar(int width, int height){
     glLoadIdentity();
     gluPerspective(ang_perspec, fAspect, 0.5, 1000);
 
-    atualizarObservador(&obs);
+    atualizarObservador(vet_obs[obs_atual]);
+
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void teclaPressionada(unsigned char key, int x, int y){
 
-    float vetorDiretor[3] = {sin(obs.phi)*cos(obs.theta), sin(obs.phi)*sin(obs.theta), cos(obs.phi)};
+    float vetorDiretor[3] = {sin(vet_obs[obs_atual].phi)*cos(vet_obs[obs_atual].theta), sin(vet_obs[obs_atual].phi)*sin(vet_obs[obs_atual].theta), cos(vet_obs[obs_atual].phi)};
     normalizarVetor3D(vetorDiretor);
 
     float vetorPerpendicularXY[2];  //vetor perpendicular a projecao de vetorDiretor no eixo XY
@@ -126,35 +132,63 @@ void teclaPressionada(unsigned char key, int x, int y){
     normalizarVetor2D(vetorPerpendicularXY);
 
     int sinal_horizontal=1;
-    if(!(obs.theta>=0 && obs.theta<M_PI)){
+    if(!(vet_obs[obs_atual].theta>=0 && vet_obs[obs_atual].theta<M_PI)){
         sinal_horizontal=-1;
     }
 
     switch(key){
     case 'd':
         if(tela==TELA_PLANETAS){
-            obs.xpos -= obs.velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
-            obs.ypos -= obs.velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
+            vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
+            vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
         }
         break;
     case 'a':
         if(tela==TELA_PLANETAS){
-            obs.xpos += obs.velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
-            obs.ypos += obs.velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
+            vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
+            vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
         }
         break;
     case 'w':   //para frente
         if(tela==TELA_PLANETAS){
-            obs.xpos += obs.velocidade * vetorDiretor[0];
-            obs.ypos += obs.velocidade * vetorDiretor[1];
-            obs.zpos += obs.velocidade * vetorDiretor[2];
+            vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorDiretor[0];
+            vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorDiretor[1];
+            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade * vetorDiretor[2];
         }
         break;
     case 's':
         if(tela==TELA_PLANETAS){
-            obs.xpos -= obs.velocidade * vetorDiretor[0];
-            obs.ypos -= obs.velocidade * vetorDiretor[1];
-            obs.zpos -= obs.velocidade * vetorDiretor[2];
+            vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorDiretor[0];
+            vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorDiretor[1];
+            vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade * vetorDiretor[2];
+        }
+        break;
+    case '1':
+        if(tela==TELA_PLANETAS){
+            obs_atual = CAM_CIMA;
+        }
+        break;
+    case '2':
+        if(tela==TELA_PLANETAS){
+            obs_atual = CAM_FRONTAL;
+        }
+        break;
+    case '3':
+        if(tela==TELA_PLANETAS){
+            obs_atual = CAM_LIVRE;
+        }
+        break;
+    case '4':
+        if(tela==TELA_PLANETAS){
+            obs_atual = CAM_ACOMPANHA;
+        }
+        break;
+    case ' ':
+        if(tela==TELA_PLANETAS && obs_atual == CAM_ACOMPANHA){
+            astro_atual++;
+            if(astro_atual == TAM_VET_ASTROS){
+                astro_atual = 0;
+            }
         }
         break;
     case 'p':
@@ -187,7 +221,7 @@ void teclaPressionada(unsigned char key, int x, int y){
     default:
         break;
     }
-    atualizarObservador(&obs);
+    atualizarObservador(vet_obs[obs_atual]);
 }
 
 void posicionaCamera(int x, int y) {
@@ -196,29 +230,29 @@ void posicionaCamera(int x, int y) {
         xMouse = x;
         yMouse = y;
         glutWarpPointer(larg_janela/2,alt_janela/2);
-        obs.theta -= (float)(xMouse - larg_janela/2)/500;
-        obs.phi -= (float)(yMouse - alt_janela/2)/500;
-        limitarAngulosObservador(&obs);
-        corrigirUpVectorObservador(&obs);
-        atualizarObservador(&obs);
+        vet_obs[obs_atual].theta -= (float)(xMouse - larg_janela/2)/500;
+        vet_obs[obs_atual].phi -= (float)(yMouse - alt_janela/2)/500;
+        limitarAngulosObservador(&vet_obs[obs_atual]);
+        corrigirUpVectorObservador(&vet_obs[obs_atual]);
+        atualizarObservador(vet_obs[obs_atual]);
     }
 }
 
 void rodaMouse(int button, int dir, int x, int y){
     if (dir > 0){ //roda pra cima
         if(tela==TELA_PLANETAS){
-            obs.zpos += obs.velocidade;
+            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
         }
     }
     else{
         if(tela==TELA_PLANETAS){
-            obs.zpos -= obs.velocidade;
+            vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
         }
     }
-    atualizarObservador(&obs);
+    atualizarObservador(vet_obs[obs_atual]);
 }
 
-// funï¿½ï¿½o principal
+// função principal
 int main(int argc, char** argv)
 {
     imprimirInstrucoesConsole();

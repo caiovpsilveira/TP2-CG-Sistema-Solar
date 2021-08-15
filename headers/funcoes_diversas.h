@@ -12,10 +12,14 @@ void normalizarVetor3D(float * vetor3D){
 }
 
 void imprimirInstrucoesConsole(){
-    printf("CONTROLE DE CAMERA:\n");
+    printf("Aperte 1, 2, 3 ou 4para alterar a camera\n");
+    printf("1: camera \"superior\", 2: camera \"frontal\", 3: camera livre, 4: camera que acompanha o planeta.\n\n");
+    printf("CONTROLE DE CAMERA LIVRE:\n");
     printf("W A S D: movimentacao\n");
     printf("Mexer o cursor: mudar direcao da camera\n");
     printf("MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n\n");
+    printf("CONTROLE DE CAMERA QUE ACOMPANHA:\n");
+    printf("Aperta espaco para trocar o planeta.\n\n");
     printf("CONTROLES:\n");
     printf("R: reiniciar simulacao\n");
     printf("P: pausar simulacao\n");
@@ -40,6 +44,8 @@ GLuint carregaTextura(const char* caminho){
 //https://www.solarsystemscope.com/textures/
 void inicializarTexturas(struct astro * vet_astros){
 
+    int i;
+
     strncpy(vet_astros[0].textura.nome_arquivo, "texturas/textura_sol.jpg", 50);
     strncpy(vet_astros[1].textura.nome_arquivo, "texturas/textura_mercurio.jpg", 50);
     strncpy(vet_astros[2].textura.nome_arquivo, "texturas/textura_venus.jpg", 50);
@@ -50,7 +56,7 @@ void inicializarTexturas(struct astro * vet_astros){
     strncpy(vet_astros[7].textura.nome_arquivo, "texturas/textura_urano.jpg", 50);
     strncpy(vet_astros[8].textura.nome_arquivo, "texturas/textura_netuno.jpg", 50);
 
-    for(int i=0; i<TAM_VET_ASTROS; i++){
+    for(i=0; i<TAM_VET_ASTROS; i++){
         vet_astros[i].textura.id = carregaTextura(vet_astros[i].textura.nome_arquivo);
     }
 }

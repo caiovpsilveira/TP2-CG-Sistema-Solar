@@ -40,3 +40,11 @@ void desenhaEixosOrdenados(){
 
     glEnable(GL_LIGHTING);
 }
+
+void desenhaEsfera(struct astro astro){
+    glColor3f(1,1,1);
+    glPushMatrix();
+        //glutSolidCube(astro.raio_esf);
+        solidSphere(astro.raio_esf, NUM_SLICES, NUM_STACKS);
+    glPopMatrix();
+}

@@ -62,11 +62,3 @@ void desenhaAstros(struct astro * vet_astros, int * vet_estados){
         glDisable(GL_TEXTURE_2D);
     }
 }
-
-void desenhaEsfera(struct astro astro){
-    glColor3f(1,1,1);
-    glPushMatrix();
-        //glutSolidCube(astro.raio_esf);
-        solidSphere(astro.raio_esf, NUM_SLICES, NUM_STACKS);
-    glPopMatrix();
-}
