@@ -21,3 +21,13 @@ void atualizarObservador(struct observador * obs);
 
 //Iluminação
 int  inicializaIluminacao();
+
+//main
+void setup();
+void inicializaTudo();
+void desenhaMinhaCena();
+void atualizaCena(int valorQualquer);
+void redimensionar(int width, int height);
+void teclaPressionada(unsigned char key, int x, int y);
+void posicionaCamera(int x, int y);
+void rodaMouse(int button, int dir, int x, int y);
