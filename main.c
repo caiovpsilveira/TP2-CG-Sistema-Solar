@@ -5,12 +5,12 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <SOIL/SOIL.h>
 
 #include "headers/definicoes.h"
-//#include "headers/prototipos.h"
 #include "headers/structs.h"
 #include "headers/funcoes_desenho.h"
 #include "headers/funcoes_diversas.h"
