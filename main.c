@@ -40,14 +40,15 @@ void setup(){   //estados do glut que nao serao alterados ao longo da execucao
 
     inicializarTexturas(vet_astros);
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    //glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);    //sombreamento
     glEnable(GL_CULL_FACE); //nao desenhar de dentro do objeto
     glCullFace(GL_BACK);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. Essa funcao os coloca em um estado inicial e pode ser usada para reiniciar
@@ -56,7 +57,6 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     ang_perspec = 45;
     tela = TELA_PLANETAS;
     simul_pausada=0;
-    inicializaIluminacao();
     inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
     inicializaObservadores(vet_obs);
@@ -73,6 +73,7 @@ void desenhaMinhaCena(){
 
     switch(tela){
         case TELA_PLANETAS:
+            inicializaIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();

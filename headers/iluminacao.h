@@ -4,11 +4,12 @@ void inicializaIluminacao(){
     float matAmbAndDif[] = {1.0, 1.0, 1.0, 1.0};    // cor ambiente e difusa: branca
     float matSpec[] = { 1.0, 1.0, 1,0, 1.0 };       // cor especular: branca
 
-    float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
+    float lightAmb[] = {0.0, 0.0, 0.0, 1.0 };
     float lightDif0[] = { 1.0, 1.0, 1.0, 1.0 };
     float lightSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
-    float lightPos0[] = { 0.0, 0.0, 20, 1 }; //ultimo parametro: posicional :1 ou direcional:0
+    float lightPos0[] = { 0.0, 0.0, 0.0, 1 }; //ultimo parametro: posicional :1 ou direcional:0
     float globAmb[] = { 0.2, 0.2, 0.2, 1.0 };
+    int localViewer = 1;    //0: specular em direcao ao eixo z, outro: em direcao ao sistema do observador
 
     // Definindo as propriedades do material
     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, matAmbAndDif);
@@ -21,11 +22,9 @@ void inicializaIluminacao(){
     glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpec0);
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
 
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_DEPTH_TEST);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb);
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, localViewer);// Enable local viewpoint
 
-	glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+	glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
 }

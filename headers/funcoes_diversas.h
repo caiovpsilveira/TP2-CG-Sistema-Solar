@@ -72,6 +72,9 @@ void inicializaVetEstados(int * vet_estados){
 void escreverTexto(int x, int y, char *string){
     char *c;
 
+    int ilumHab;
+    glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
+
     glDisable(GL_LIGHTING);
 
     //glMatrixMode(GL_MODELVIEW);
@@ -92,5 +95,7 @@ void escreverTexto(int x, int y, char *string){
         glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 
-    glEnable(GL_LIGHTING);
+    if(ilumHab){
+        glEnable(GL_LIGHTING);
+    }
 }

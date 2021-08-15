@@ -17,6 +17,9 @@ void solidSphere(int radius, int stacks, int columns){
 }
 
 void desenhaEixosOrdenados(){
+    int ilumHab;
+    glGetIntegerv(GL_LIGHTING, &ilumHab); //GL_LIGHTING estava habilitado antes de chamar a funcao?
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glDisable(GL_LIGHTING);
     glLineWidth(2.0);
@@ -38,7 +41,9 @@ void desenhaEixosOrdenados(){
         glVertex3f(0,0,100);
     glEnd();
 
-    glEnable(GL_LIGHTING);
+    if(ilumHab){
+        glEnable(GL_LIGHTING);
+    }
 }
 
 void desenhaEsfera(struct astro astro){
