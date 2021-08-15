@@ -7,7 +7,7 @@ void inicializaIluminacao(){
     float lightAmb[] = { 0.0, 0.0, 0.0, 1.0 };
     float lightDif0[] = { 1.0, 1.0, 1.0, 1.0 };
     float lightSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
-    float lightPos0[] = { 0.0, 0.0, 20, 0 }; //ultimo parametro: posicional ou direcional
+    float lightPos0[] = { 0.0, 0.0, 20, 1 }; //ultimo parametro: posicional :1 ou direcional:0
     float globAmb[] = { 0.2, 0.2, 0.2, 1.0 };
 
     // Definindo as propriedades do material
@@ -19,6 +19,7 @@ void inicializaIluminacao(){
     glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDif0);
     glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpec0);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
 
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);

@@ -25,7 +25,7 @@ struct astro{
 struct observador{
     float theta;    //coordenadas polares
     float phi;
-    float velocidade;
+    float velocidade;   //se a velocidade for 0, a camera sera fixa em um ponto, e so poder olhar em volta
     float xpos;
     float ypos;
     float zpos;

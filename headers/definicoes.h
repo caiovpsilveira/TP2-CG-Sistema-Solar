@@ -6,11 +6,11 @@
 #define TELA_PLANETAS 0
 #define TELA_PAUSE_MENU 1
 
-
-#define EIXO_ROT 0
-#define INC_ORBITAL 1
-#define OBLIQ_ORBITA 2
-#define TAM_VET_ESTADOS 3
+#define EIXOS_ORDEN 0
+#define EIXO_ROT 1
+#define INC_ORBITAL 2
+#define OBLIQ_ORBITA 3
+#define TAM_VET_ESTADOS 4
 
 #define CAM_CIMA 0
 #define CAM_FRONTAL 1

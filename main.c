@@ -12,7 +12,6 @@
 
 #include "headers/definicoes.h"
 #include "headers/structs.h"
-// #include "headers/declaracao_funcoes.h"
 #include "headers/funcoes_desenho.h"
 #include "headers/funcoes_diversas.h"
 #include "headers/iluminacao.h"
@@ -63,6 +62,7 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     inicializaObservadores(vet_obs);
 
     //temporario: ideal seria colocar uma tecla pra alternar
+    habilita(EIXOS_ORDEN);
     habilita(EIXO_ROT);
     habilita(INC_ORBITAL);
     habilita(OBLIQ_ORBITA);
@@ -74,8 +74,11 @@ void desenhaMinhaCena(){
     switch(tela){
         case TELA_PLANETAS:
             glutSetCursor(GLUT_CURSOR_NONE);
-            desenhaEixosOrdenados();
+            if(vet_estados[EIXOS_ORDEN]){
+                desenhaEixosOrdenados();
+            }
             desenhaAstros(vet_astros, vet_estados);
+            escreverTexto(100,100, (char*)"TesteTeste");
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
@@ -97,7 +100,7 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
     }
 
     glutPostRedisplay();
-    glutTimerFunc(33, atualizaCena, 0); // por quï¿½ 33? 1000/33 = 30fps, 16:60
+    glutTimerFunc(33, atualizaCena, 0); // por quê 33? 1000/33 = 30fps, 16:60
 }
 
 void redimensionar(int width, int height){
@@ -253,7 +256,7 @@ void rodaMouse(int button, int dir, int x, int y){
     atualizarObservador(vet_obs[obs_atual]);
 }
 
-// funï¿½ï¿½o principal
+// função principal
 int main(int argc, char** argv)
 {
     imprimirInstrucoesConsole();
