@@ -24,6 +24,11 @@ void imprimirInstrucoesConsole(){
     printf("R: reiniciar simulacao\n");
     printf("P: pausar simulacao\n");
     printf("ESC: tela menu\n");
+    printf("L: ligar/desligar iluminacao.\n");
+    printf("Z: mostrar/esconder eixos de rotacao.\n");
+    printf("X: considerar/desconsiderar inclinacao orbital.\n");
+    printf("C: considerar/desconsiderar obliquidade da orbita.\n");
+    printf("V: mostrar/esconder eixos ordenados do glut.\n");
 }
 
 GLuint carregaTextura(const char* caminho){
@@ -69,14 +74,8 @@ void inicializaVetEstados(int * vet_estados){
 }
 
 //creditos: https://www.gamedev.net/forums/topic/96440-opengl-2d-text-in-3d-space/
-void escreverTexto(int x, int y, char *string){
-    char *c;
-
-    int ilumHab;
-    glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
-
-    glDisable(GL_LIGHTING);
-
+//OBS: SEMPRE QUE CHAMAR projecaoOrto(), e necessario chamar retornaPerspectiva() ao fim da funcao
+void projecaoOrto(){
     //glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
         glLoadIdentity();
@@ -87,13 +86,28 @@ void escreverTexto(int x, int y, char *string){
             glGetIntegerv(GL_VIEWPORT, viewport);
             gluOrtho2D(0,viewport[2], viewport[3], 0);
             glDepthFunc(GL_ALWAYS);
-            glColor3f(1,1,1);
-            glRasterPos2f(x, y);
-            for (c = string; *c != '\0'; c++) glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
+}
+
+void retornaPerspectiva(){
             glDepthFunc(GL_LESS);
             glPopMatrix();
         glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+}
+
+
+void escreverTexto(int x, int y, char *string){
+    char *c;
+
+    int ilumHab;
+    glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
+    glDisable(GL_LIGHTING);
+
+    projecaoOrto();
+        glColor3f(1,1,1);
+        glRasterPos2f(x, y);
+        for (c = string; *c != '\0'; c++) glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
+    retornaPerspectiva();
 
     if(ilumHab){
         glEnable(GL_LIGHTING);

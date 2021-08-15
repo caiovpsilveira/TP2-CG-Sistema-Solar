@@ -19,6 +19,7 @@
 #include "headers/funcoes_observador.h"
 
 int obs_atual, astro_atual; //indices da camera
+int luzLigada;
 int tela, simul_pausada, aux_pause;
 int larg_janela, alt_janela;
 int xMouse, yMouse;
@@ -28,12 +29,13 @@ GLfloat ang_perspec, fAspect;
 struct observador vet_obs[TAM_VET_OBS];
 struct astro vet_astros[TAM_VET_ASTROS];
 
-void habilita(int estado){
-    vet_estados[estado] = 1;
-}
-
-void desabilita(int estado){
-    vet_estados[estado] = 0;
+void toggleEstado(int estado){
+    if(vet_estados[estado]){
+        vet_estados[estado]=0;
+    }
+    else{
+        vet_estados[estado]=1;
+    }
 }
 
 void setup(){   //estados do glut que nao serao alterados ao longo da execucao
@@ -55,17 +57,22 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     obs_atual = CAM_CIMA;
     astro_atual = 0;
     ang_perspec = 45;
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    luzLigada = 1;
+
     tela = TELA_PLANETAS;
     simul_pausada=0;
     inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
     inicializaObservadores(vet_obs);
 
-    //temporario: ideal seria colocar uma tecla pra alternar
-    habilita(EIXOS_ORDEN);
-    habilita(EIXO_ROT);
-    habilita(INC_ORBITAL);
-    habilita(OBLIQ_ORBITA);
+    //temporario: alterar a inicializacao;
+    toggleEstado(EIXOS_ORDEN);
+    toggleEstado(EIXO_ROT);
+    toggleEstado(INC_ORBITAL);
+    toggleEstado(OBLIQ_ORBITA);
 }
 
 void desenhaMinhaCena(){
@@ -73,7 +80,7 @@ void desenhaMinhaCena(){
 
     switch(tela){
         case TELA_PLANETAS:
-            inicializaIluminacao();
+            atualizarIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
@@ -142,18 +149,22 @@ void teclaPressionada(unsigned char key, int x, int y){
     }
 
     switch(key){
+    //MOVIMENTO CAMERA LIVRE
+    case 'D':
     case 'd':
         if(tela==TELA_PLANETAS){
             vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
             vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
         }
         break;
+    case 'A':
     case 'a':
         if(tela==TELA_PLANETAS){
             vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
             vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
         }
         break;
+    case 'W':
     case 'w':   //para frente
         if(tela==TELA_PLANETAS){
             vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorDiretor[0];
@@ -161,6 +172,7 @@ void teclaPressionada(unsigned char key, int x, int y){
             vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade * vetorDiretor[2];
         }
         break;
+    case 'S':
     case 's':
         if(tela==TELA_PLANETAS){
             vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorDiretor[0];
@@ -168,6 +180,7 @@ void teclaPressionada(unsigned char key, int x, int y){
             vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade * vetorDiretor[2];
         }
         break;
+    //CONTROLE CAMERA ATUAL
     case '1':
         if(tela==TELA_PLANETAS){
             obs_atual = CAM_CIMA;
@@ -196,6 +209,8 @@ void teclaPressionada(unsigned char key, int x, int y){
             }
         }
         break;
+    //MUDANCAS DE ESTADO
+    case 'P':
     case 'p':
         if(tela==TELA_PLANETAS){
                 if(simul_pausada){
@@ -206,8 +221,46 @@ void teclaPressionada(unsigned char key, int x, int y){
                 }
             }
         break;
+    case 'L':
+    case 'l':
+        if(luzLigada){
+            glDisable(GL_LIGHTING);
+            luzLigada = 0;
+        }
+        else{
+            glEnable(GL_LIGHTING);
+            luzLigada = 1;
+        }
+        break;
+    case 'Z':
+    case 'z':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(EIXO_ROT);
+        }
+        break;
+    case 'X':
+    case 'x':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(INC_ORBITAL);
+        }
+        break;
+    case 'C':
+    case 'c':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(OBLIQ_ORBITA);
+        }
+        break;
+    case 'V':
+    case 'v':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(EIXOS_ORDEN);
+        }
+        break;
+    case 'R':
     case 'r':
-        inicializaTudo();
+        if(tela == TELA_PLANETAS){
+            inicializaTudo();
+        }
         break;
     case 27: //esc
         if(tela==TELA_PLANETAS){

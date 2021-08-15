@@ -21,9 +21,12 @@ void movimentaAstros(struct astro  * vet_astros){
 }
 
 void desenhaAstros(struct astro * vet_astros, int * vet_estados){
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
     int i, ilumHab;
+    glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
+
     glColor3f(1,1,1);
+
     for(i=0;i<TAM_VET_ASTROS;i++){
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, vet_astros[i].textura.id);
@@ -55,7 +58,9 @@ void desenhaAstros(struct astro * vet_astros, int * vet_estados){
                     glVertex3f(0,0, 1.5*vet_astros[i].raio_esf);
                 glEnd();
                 glEnable(GL_TEXTURE_2D);
-                glEnable(GL_LIGHTING);
+                if(ilumHab){
+                    glEnable(GL_LIGHTING);
+                }
             }
             if(i==0){
                 glGetIntegerv(GL_LIGHTING, &ilumHab);

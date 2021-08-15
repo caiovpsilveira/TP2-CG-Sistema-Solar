@@ -1,4 +1,4 @@
-void inicializaIluminacao(){
+void atualizarIluminacao(){
 
     float matShine[] = {50.0};                       // expoente especular (shininess)
     float matAmbAndDif[] = {1.0, 1.0, 1.0, 1.0};    // cor ambiente e difusa: branca
@@ -24,7 +24,4 @@ void inicializaIluminacao(){
 
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, localViewer);// Enable local viewpoint
-
-	glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
 }
