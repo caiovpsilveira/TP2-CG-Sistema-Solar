@@ -51,15 +51,15 @@ void inicializarTexturas(struct astro * vet_astros){
 
     int i;
 
-    strncpy(vet_astros[0].textura.nome_arquivo, "texturas/textura_sol.jpg", 50);
-    strncpy(vet_astros[1].textura.nome_arquivo, "texturas/textura_mercurio.jpg", 50);
-    strncpy(vet_astros[2].textura.nome_arquivo, "texturas/textura_venus.jpg", 50);
-    strncpy(vet_astros[3].textura.nome_arquivo, "texturas/textura_terra.jpg", 50);
-    strncpy(vet_astros[4].textura.nome_arquivo, "texturas/textura_marte.jpg", 50);
-    strncpy(vet_astros[5].textura.nome_arquivo, "texturas/textura_jupiter.jpg", 50);
-    strncpy(vet_astros[6].textura.nome_arquivo, "texturas/textura_saturno.jpg", 50);
-    strncpy(vet_astros[7].textura.nome_arquivo, "texturas/textura_urano.jpg", 50);
-    strncpy(vet_astros[8].textura.nome_arquivo, "texturas/textura_netuno.jpg", 50);
+    strncpy(vet_astros[0].textura.nome_arquivo, "texturas/textura_sol.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[1].textura.nome_arquivo, "texturas/textura_mercurio.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[2].textura.nome_arquivo, "texturas/textura_venus.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[3].textura.nome_arquivo, "texturas/textura_terra.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[4].textura.nome_arquivo, "texturas/textura_marte.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[5].textura.nome_arquivo, "texturas/textura_jupiter.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[6].textura.nome_arquivo, "texturas/textura_saturno.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[7].textura.nome_arquivo, "texturas/textura_urano.jpg", TAM_STRING_ARQUIVO);
+    strncpy(vet_astros[8].textura.nome_arquivo, "texturas/textura_netuno.jpg", TAM_STRING_ARQUIVO);
 
     for(i=0; i<TAM_VET_ASTROS; i++){
         vet_astros[i].textura.id = carregaTextura(vet_astros[i].textura.nome_arquivo);
@@ -67,49 +67,8 @@ void inicializarTexturas(struct astro * vet_astros){
 }
 
 void inicializaVetEstados(int * vet_estados){
-    int i;
-    for(i=0;i<TAM_VET_ESTADOS;i++){
-        vet_estados[i]=0;
-    }
-}
-
-//creditos: https://www.gamedev.net/forums/topic/96440-opengl-2d-text-in-3d-space/
-//OBS: SEMPRE QUE CHAMAR projecaoOrto(), e necessario chamar retornaPerspectiva() ao fim da funcao
-void projecaoOrto(){
-    //glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-        glLoadIdentity();
-        glMatrixMode(GL_PROJECTION);
-            glPushMatrix();
-            glLoadIdentity();
-            GLint viewport[4];
-            glGetIntegerv(GL_VIEWPORT, viewport);
-            gluOrtho2D(0,viewport[2], viewport[3], 0);
-            glDepthFunc(GL_ALWAYS);
-}
-
-void retornaPerspectiva(){
-            glDepthFunc(GL_LESS);
-            glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-}
-
-
-void escreverTexto(int x, int y, char *string){
-    char *c;
-
-    int ilumHab;
-    glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
-    glDisable(GL_LIGHTING);
-
-    projecaoOrto();
-        glColor3f(1,1,1);
-        glRasterPos2f(x, y);
-        for (c = string; *c != '\0'; c++) glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
-    retornaPerspectiva();
-
-    if(ilumHab){
-        glEnable(GL_LIGHTING);
-    }
+    vet_estados[EIXOS_ORDEN] = 0;
+    vet_estados[EIXO_ROT] = 1;
+    vet_estados[INC_ORBITAL] = 1;
+    vet_estados[OBLIQ_ORBITA] = 1;
 }

@@ -1,5 +1,16 @@
 void inicializaAstros(struct astro * vet_astros){
     int i;
+
+    strncpy(vet_astros[0].nome, "Sol", TAM_STR_ASTRO);
+    strncpy(vet_astros[1].nome, "Mercurio", TAM_STR_ASTRO);
+    strncpy(vet_astros[2].nome, "Venus", TAM_STR_ASTRO);
+    strncpy(vet_astros[3].nome, "Terra", TAM_STR_ASTRO);
+    strncpy(vet_astros[4].nome, "Marte", TAM_STR_ASTRO);
+    strncpy(vet_astros[5].nome, "Jupiter", TAM_STR_ASTRO);
+    strncpy(vet_astros[6].nome, "Saturno", TAM_STR_ASTRO);
+    strncpy(vet_astros[7].nome, "Urano", TAM_STR_ASTRO);
+    strncpy(vet_astros[8].nome, "Netuno", TAM_STR_ASTRO);
+
     for(i=0; i < TAM_VET_ASTROS; i++){
         vet_astros[i].raio_esf = 10;
         vet_astros[i].raio_trans = i*30;
@@ -18,6 +29,14 @@ void movimentaAstros(struct astro  * vet_astros){
         vet_astros[i].ang_rot += vet_astros[i].vel_rot;
         vet_astros[i].ang_trans += vet_astros[i].vel_trans;
     }
+}
+
+void desenhaEsferaAstro(struct astro astro){
+    glColor3f(1,1,1);
+    glPushMatrix();
+        //glutSolidCube(astro.raio_esf);
+        solidSphere(astro.raio_esf, NUM_SLICES, NUM_STACKS);
+    glPopMatrix();
 }
 
 void desenhaAstros(struct astro * vet_astros, int * vet_estados){
@@ -66,7 +85,7 @@ void desenhaAstros(struct astro * vet_astros, int * vet_estados){
                 glGetIntegerv(GL_LIGHTING, &ilumHab);
                 glDisable(GL_LIGHTING);
             }
-            desenhaEsfera(vet_astros[i]);
+            desenhaEsferaAstro(vet_astros[i]);
             if(i==0 && ilumHab){
                 glEnable(GL_LIGHTING);
             }

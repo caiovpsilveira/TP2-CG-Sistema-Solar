@@ -12,6 +12,8 @@
 
 #include "headers/definicoes.h"
 #include "headers/structs.h"
+#include "headers/funcoes_projecao.h"
+#include "headers/funcoes_texto.h"
 #include "headers/funcoes_desenho.h"
 #include "headers/funcoes_diversas.h"
 #include "headers/iluminacao.h"
@@ -67,26 +69,29 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
     inicializaObservadores(vet_obs);
-
-    //temporario: alterar a inicializacao;
-    toggleEstado(EIXOS_ORDEN);
-    toggleEstado(EIXO_ROT);
-    toggleEstado(INC_ORBITAL);
-    toggleEstado(OBLIQ_ORBITA);
 }
 
 void desenhaMinhaCena(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     switch(tela){
+        case TELA_MENU:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+        break;
         case TELA_PLANETAS:
             atualizarIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
+
+            desenhaAstros(vet_astros, vet_estados);
+
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
             }
-            desenhaAstros(vet_astros, vet_estados);
-            escreverTexto(100,100, (char*)"TesteTeste");
+
+            if(obs_atual == CAM_ACOMPANHA){
+                escreverInformacoesPlaneta(30,500, vet_astros[astro_atual]);
+            }
+
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);

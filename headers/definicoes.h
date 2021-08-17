@@ -3,8 +3,12 @@
 
 #define TAM_VET_ASTROS 9
 
-#define TELA_PLANETAS 0
-#define TELA_PAUSE_MENU 1
+#define TELA_MENU 0
+#define TELA_PLANETAS 1
+#define TELA_PAUSE_MENU 2
+
+#define TAM_STRING_ARQUIVO 50
+#define TAM_STR_ASTRO 20
 
 #define EIXOS_ORDEN 0
 #define EIXO_ROT 1

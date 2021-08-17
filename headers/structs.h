@@ -1,6 +1,6 @@
 struct textura {
     GLuint id;
-    char nome_arquivo[50];
+    char nome_arquivo[TAM_STRING_ARQUIVO];
 };
 
 //obs: os angulos estao em radianos
@@ -11,6 +11,7 @@ struct textura {
 //1 rad = 180 graus /M_PI;
 
 struct astro{
+    char nome[TAM_STR_ASTRO];
     float raio_esf; //tamanho da esfera
     float raio_trans;
     float ang_rot;

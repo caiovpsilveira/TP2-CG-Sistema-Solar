@@ -1,3 +1,4 @@
+//retirada do exemplo de marte
 void solidSphere(int radius, int stacks, int columns){
     // cria uma quádrica
     GLUquadric* quadObj = gluNewQuadric();
@@ -11,8 +12,7 @@ void solidSphere(int radius, int stacks, int columns){
     gluQuadricTexture(quadObj, GL_TRUE);
     // cria os vértices de uma esfera
     gluSphere(quadObj, radius, stacks, columns);
-    // limpa as variáveis que a GLU usou para criar
-    // a esfera
+    // limpa as variáveis que a GLU usou para criar a esfera
     gluDeleteQuadric(quadObj);
 }
 
@@ -44,12 +44,4 @@ void desenhaEixosOrdenados(){
     if(ilumHab){
         glEnable(GL_LIGHTING);
     }
-}
-
-void desenhaEsfera(struct astro astro){
-    glColor3f(1,1,1);
-    glPushMatrix();
-        //glutSolidCube(astro.raio_esf);
-        solidSphere(astro.raio_esf, NUM_SLICES, NUM_STACKS);
-    glPopMatrix();
 }
