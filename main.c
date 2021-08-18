@@ -22,7 +22,7 @@
 
 int obs_atual, astro_atual; //indices da camera
 int luzLigada;
-int tela, simul_pausada, aux_pause;
+int tela, telaAnterior, simul_pausada, aux_pause;
 int larg_janela, alt_janela;
 int xMouse, yMouse;
 int vet_estados[TAM_VET_ESTADOS];
@@ -40,7 +40,7 @@ void toggleEstado(int estado){
     }
 }
 
-void setup(){   //estados do glut que nao serao alterados ao longo da execucao
+void setup(){   //setup inicial
 
     inicializarTexturas(vet_astros);
 
@@ -53,6 +53,9 @@ void setup(){   //estados do glut que nao serao alterados ao longo da execucao
 	glShadeModel(GL_SMOOTH);    //sombreamento
     glEnable(GL_CULL_FACE); //nao desenhar de dentro do objeto
     glCullFace(GL_BACK);
+
+    tela = TELA_MENU;
+    telaAnterior = TELA_MENU;
 }
 
 void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. Essa funcao os coloca em um estado inicial e pode ser usada para reiniciar
@@ -64,8 +67,7 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     glEnable(GL_LIGHT0);
     luzLigada = 1;
 
-    tela = TELA_PLANETAS;
-    simul_pausada=0;
+    simul_pausada = 0;
     inicializaVetEstados(vet_estados);
     inicializaAstros(vet_astros);
     inicializaObservadores(vet_obs);
@@ -77,12 +79,14 @@ void desenhaMinhaCena(){
     switch(tela){
         case TELA_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+            escreverMenuPrincipal();
         break;
         case TELA_PLANETAS:
             atualizarIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
 
             desenhaAstros(vet_astros, vet_estados);
+            escreveHud();
 
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
@@ -95,6 +99,19 @@ void desenhaMinhaCena(){
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+            escreveMenuPause();
+            break;
+        case TELA_CREDITOS:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+            escreveCreditos();
+            break;
+        case TELA_CONTROLES:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+            escreveControles();
+            break;
+        case TELA_INFORMACOES:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+            escreveInformacoes();
             break;
         default:
             break;
@@ -104,12 +121,14 @@ void desenhaMinhaCena(){
 }
 
 void atualizaCena(int valorQualquer){   //UPDATE DA CENA
-    if(!simul_pausada){
-        movimentaAstros(vet_astros);
-    }
-    if(obs_atual == CAM_ACOMPANHA){
-        atualizaCamAcompanha(vet_astros, &vet_obs[obs_atual], astro_atual, vet_estados);
-        atualizarObservador(vet_obs[obs_atual]);
+    if(tela == TELA_PLANETAS){
+        if(!simul_pausada){
+            movimentaAstros(vet_astros);
+        }
+        if(obs_atual == CAM_ACOMPANHA){
+            atualizaCamAcompanha(vet_astros, &vet_obs[obs_atual], astro_atual, vet_estados);
+            atualizarObservador(vet_obs[obs_atual]);
+        }
     }
 
     glutPostRedisplay();
@@ -154,14 +173,9 @@ void teclaPressionada(unsigned char key, int x, int y){
     }
 
     switch(key){
-    //MOVIMENTO CAMERA LIVRE
-    case 'D':
-    case 'd':
-        if(tela==TELA_PLANETAS){
-            vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
-            vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
-        }
-        break;
+    /*
+    LETRAS
+    */
     case 'A':
     case 'a':
         if(tela==TELA_PLANETAS){
@@ -169,12 +183,70 @@ void teclaPressionada(unsigned char key, int x, int y){
             vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
         }
         break;
-    case 'W':
-    case 'w':   //para frente
+    case 'C':
+    case 'c':
         if(tela==TELA_PLANETAS){
-            vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorDiretor[0];
-            vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorDiretor[1];
-            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade * vetorDiretor[2];
+            toggleEstado(OBLIQ_ORBITA);
+        }
+        else if(tela == TELA_PAUSE_MENU){
+            telaAnterior = TELA_PAUSE_MENU;
+            tela = TELA_CONTROLES;
+        }
+        else if(tela == TELA_MENU){
+            telaAnterior = TELA_MENU;
+            tela = TELA_CONTROLES;
+        }
+        break;
+    case 'D':
+    case 'd':
+        if(tela==TELA_PLANETAS){
+            vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
+            vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
+        }
+        break;
+    case 'I':
+    case 'i':
+        if(tela == TELA_MENU){
+            telaAnterior = TELA_MENU;
+            tela = TELA_INFORMACOES;
+        }
+        else if(tela == TELA_PAUSE_MENU){
+            telaAnterior = TELA_PAUSE_MENU;
+            tela = TELA_INFORMACOES;
+        }
+        break;
+    case 'L':
+    case 'l':
+        if(luzLigada){
+            glDisable(GL_LIGHTING);
+            luzLigada = 0;
+        }
+        else{
+            glEnable(GL_LIGHTING);
+            luzLigada = 1;
+        }
+        break;
+    case 'O':
+    case 'o':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(ORBITAS);
+        }
+        break;
+    case 'P':
+    case 'p':
+        if(tela==TELA_PLANETAS){
+                if(simul_pausada){
+                    simul_pausada=0;
+                }
+                else{
+                    simul_pausada=1;
+                }
+            }
+        break;
+    case 'R':
+    case 'r':
+        if(tela == TELA_PLANETAS){
+            inicializaTudo();
         }
         break;
     case 'S':
@@ -185,7 +257,47 @@ void teclaPressionada(unsigned char key, int x, int y){
             vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade * vetorDiretor[2];
         }
         break;
-    //CONTROLE CAMERA ATUAL
+    case 'V':
+    case 'v':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(EIXOS_ORDEN);
+        }
+        break;
+    case 'W':
+    case 'w':   //para frente
+        if(tela==TELA_PLANETAS){
+            vet_obs[obs_atual].xpos += vet_obs[obs_atual].velocidade * vetorDiretor[0];
+            vet_obs[obs_atual].ypos += vet_obs[obs_atual].velocidade * vetorDiretor[1];
+            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade * vetorDiretor[2];
+        }
+        break;
+    case 'X':
+    case 'x':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(INC_ORBITAL);
+        }
+        else if(tela == TELA_PAUSE_MENU){
+            tela = TELA_MENU;
+        }
+        break;
+    case 'Z':
+    case 'z':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(EIXO_ROT);
+        }
+        else if(tela == TELA_MENU){
+            telaAnterior = TELA_MENU;
+            tela = TELA_CREDITOS;
+        }
+        else if(tela == TELA_PAUSE_MENU){
+            telaAnterior = TELA_PAUSE_MENU;
+            tela = TELA_CREDITOS;
+        }
+        break;
+
+    /*
+    NUMEROS
+    */
     case '1':
         if(tela==TELA_PLANETAS){
             obs_atual = CAM_CIMA;
@@ -206,65 +318,20 @@ void teclaPressionada(unsigned char key, int x, int y){
             obs_atual = CAM_ACOMPANHA;
         }
         break;
+
+    /*
+    OUTROS
+    */
     case ' ':
-        if(tela==TELA_PLANETAS && obs_atual == CAM_ACOMPANHA){
+        if(tela == TELA_MENU){
+            inicializaTudo();
+            tela = TELA_PLANETAS;
+        }
+        else if(tela==TELA_PLANETAS && obs_atual == CAM_ACOMPANHA){
             astro_atual++;
             if(astro_atual == TAM_VET_ASTROS){
                 astro_atual = 0;
             }
-        }
-        break;
-    //MUDANCAS DE ESTADO
-    case 'P':
-    case 'p':
-        if(tela==TELA_PLANETAS){
-                if(simul_pausada){
-                    simul_pausada=0;
-                }
-                else{
-                    simul_pausada=1;
-                }
-            }
-        break;
-    case 'L':
-    case 'l':
-        if(luzLigada){
-            glDisable(GL_LIGHTING);
-            luzLigada = 0;
-        }
-        else{
-            glEnable(GL_LIGHTING);
-            luzLigada = 1;
-        }
-        break;
-    case 'Z':
-    case 'z':
-        if(tela==TELA_PLANETAS){
-            toggleEstado(EIXO_ROT);
-        }
-        break;
-    case 'X':
-    case 'x':
-        if(tela==TELA_PLANETAS){
-            toggleEstado(INC_ORBITAL);
-        }
-        break;
-    case 'C':
-    case 'c':
-        if(tela==TELA_PLANETAS){
-            toggleEstado(OBLIQ_ORBITA);
-        }
-        break;
-    case 'V':
-    case 'v':
-        if(tela==TELA_PLANETAS){
-            toggleEstado(EIXOS_ORDEN);
-        }
-        break;
-    case 'R':
-    case 'r':
-        if(tela == TELA_PLANETAS){
-            inicializaTudo();
         }
         break;
     case 27: //esc
@@ -279,6 +346,12 @@ void teclaPressionada(unsigned char key, int x, int y){
                 simul_pausada=0;
             }
             tela=TELA_PLANETAS;
+        }
+        else if(tela == TELA_MENU){
+            exit(0);
+        }
+        else if(tela == TELA_CONTROLES || tela == TELA_INFORMACOES || tela == TELA_CREDITOS){
+            tela = telaAnterior;
         }
         break;
     default:

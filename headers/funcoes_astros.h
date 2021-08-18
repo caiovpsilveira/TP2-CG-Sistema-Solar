@@ -56,6 +56,10 @@ void desenhaAstros(struct astro * vet_astros, int * vet_estados){
                 glRotatef(vet_astros[i].inclin_orbital*180/M_PI, 1.0, 0.0, 0.0);
             }
 
+            if(vet_estados[ORBITAS]){
+                desenhaOrbita(vet_astros[i]);
+            }
+
             //translacao da posicao dos planetas
             glTranslatef(vet_astros[i].raio_trans * cos(vet_astros[i].ang_trans), vet_astros[i].raio_trans * sin(vet_astros[i].ang_trans), 0);
 
@@ -68,21 +72,10 @@ void desenhaAstros(struct astro * vet_astros, int * vet_estados){
 
             //desenhaEixosRotacao
             if(vet_estados[EIXO_ROT]){
-                glClearColor(0,0,0,0);
-                glDisable(GL_TEXTURE_2D);
-                glDisable(GL_LIGHTING);
-                glColor3f(1,1,1);
-                glBegin(GL_LINES);  //eixo z
-                    glVertex3f(0,0,-1.5*vet_astros[i].raio_esf);
-                    glVertex3f(0,0, 1.5*vet_astros[i].raio_esf);
-                glEnd();
-                glEnable(GL_TEXTURE_2D);
-                if(ilumHab){
-                    glEnable(GL_LIGHTING);
-                }
+                desenhaEixoRot(vet_astros[i]);
             }
-            if(i==0){
-                glGetIntegerv(GL_LIGHTING, &ilumHab);
+
+            if(i==0){   //desabilitar iluminacao sol
                 glDisable(GL_LIGHTING);
             }
             desenhaEsferaAstro(vet_astros[i]);

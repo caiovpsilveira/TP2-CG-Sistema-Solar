@@ -21,8 +21,8 @@ void imprimirInstrucoesConsole(){
     printf("CONTROLE DE CAMERA QUE ACOMPANHA:\n");
     printf("Aperta espaco para trocar o planeta.\n\n");
     printf("CONTROLES:\n");
-    printf("R: reiniciar simulacao\n");
-    printf("P: pausar simulacao\n");
+    printf("R: reiniciar\n");
+    printf("P: pausar\n");
     printf("ESC: tela menu\n");
     printf("L: ligar/desligar iluminacao.\n");
     printf("Z: mostrar/esconder eixos de rotacao.\n");
@@ -71,4 +71,5 @@ void inicializaVetEstados(int * vet_estados){
     vet_estados[EIXO_ROT] = 1;
     vet_estados[INC_ORBITAL] = 1;
     vet_estados[OBLIQ_ORBITA] = 1;
+    vet_estados[ORBITAS] = 1;
 }

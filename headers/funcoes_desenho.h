@@ -45,3 +45,42 @@ void desenhaEixosOrdenados(){
         glEnable(GL_LIGHTING);
     }
 }
+
+void desenhaOrbita(struct astro astro){
+    int i, j;
+    int ilumHab;
+
+    float angulo = 2*M_PI/PONTOS_CIRCULO;
+
+    glGetIntegerv(GL_LIGHTING, &ilumHab);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+
+    glColor3f(1,1,1);
+    glBegin(GL_LINE_LOOP);
+    for(j=0; j<PONTOS_CIRCULO; j++){
+        glVertex3f(astro.raio_trans*cos(j*angulo), astro.raio_trans*sin(j*angulo), 0);
+    }
+    glEnd();
+
+    if(ilumHab){
+        glEnable(GL_LIGHTING);
+    }
+    glEnable(GL_TEXTURE_2D);
+}
+
+void desenhaEixoRot(struct astro astro){
+    int ilumHab;
+    glGetIntegerv(GL_LIGHTING, &ilumHab);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glColor3f(1,1,1);
+    glBegin(GL_LINES);  //eixo z
+        glVertex3f(0,0,-1.5*astro.raio_esf);
+        glVertex3f(0,0, 1.5*astro.raio_esf);
+    glEnd();
+    glEnable(GL_TEXTURE_2D);
+    if(ilumHab){
+        glEnable(GL_LIGHTING);
+    }
+}
