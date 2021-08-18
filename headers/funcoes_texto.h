@@ -105,7 +105,7 @@ void escreveControles(){
     escreveString(10,275,"Z: mostrar/esconder eixos de rotacao.");
     escreveString(10,290,"X: considerar/desconsiderar inclinacao orbital.");
     escreveString(10,305,"C: considerar/desconsiderar obliquidade da orbita.");
-    escreveString(10, 320, "O: mostrar/esconder orbitas dos planetas.");
+    escreveString(10, 320,"O: mostrar/esconder orbitas dos planetas.");
     escreveString(10,335,"V: mostrar/esconder eixos ordenados do glut.");
     escreveString(10, 370, "Aperte esc para voltar a tela anterior");
     retornaPerspectiva();
@@ -126,7 +126,8 @@ void escreveHud(){
     escreveString(10,40,"Z: mostrar/esconder eixos de rotacao.");
     escreveString(10,55,"X: considerar/desconsiderar inclinacao orbital.");
     escreveString(10,70,"C: considerar/desconsiderar obliquidade da orbita.");
-    escreveString(10,85,"V: mostrar/esconder eixos ordenados do glut.");
-    escreveString(10,100,"ESC: menu de pause.");
+    escreveString(10,85,"O: mostrar/esconder orbitas dos planetas.");
+    escreveString(10,100,"V: mostrar/esconder eixos ordenados do glut.");
+    escreveString(10,115,"ESC: menu de pause.");
     retornaPerspectiva();
 }
