@@ -98,7 +98,7 @@ void escreveControles(){
     escreveString(10,105,"Mexer o cursor: mudar direcao da camera");
     escreveString(10,120,"MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n\n");
     escreveString(10,135,"CONTROLE DE CAMERA QUE ACOMPANHA:");
-    escreveString(10,150,"Aperta espaco para trocar o planeta.\n\n");
+    escreveString(10,150,"Aperta espaco para trocar o planeta.");
     escreveString(10,200,"DENTRO DA SIMULACAO:");
     escreveString(10,215,"R: reiniciar simulacao");
     escreveString(10,230,"P: pausar simulacao");
@@ -123,15 +123,35 @@ void escreveInformacoes(){
 }
 
 //escreve na tela TELA_PLANETAS os controles de toggle de estado de desenho
-void escreveHud(){
+void escreveHud(int cam_atual, int ta_pausado){
     projecaoOrto();
-    escreveString(10,10,"P: pausar.");
-    escreveString(10,25, "L: ligar/desligar iluminacao.");
-    escreveString(10,40,"Z: mostrar/esconder eixos de rotacao.");
-    escreveString(10,55,"X: considerar/desconsiderar inclinacao orbital.");
-    escreveString(10,70,"C: considerar/desconsiderar obliquidade da orbita.");
-    escreveString(10,85,"O: mostrar/esconder orbitas dos planetas.");
-    escreveString(10,100,"V: mostrar/esconder eixos ordenados do glut.");
-    escreveString(10,115,"ESC: menu de pause.");
+    switch(cam_atual){
+        case CAM_CIMA:
+            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera superior");
+            break;
+        case CAM_FRONTAL:
+            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera frontal");
+            break;
+        case CAM_LIVRE:
+            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera livre");
+            break;
+        case CAM_ACOMPANHA:
+            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera centrando astros. Espaco para trocar o astro.");
+            break;
+    }
+    if(ta_pausado){
+        escreveString(10,25,"P: pausar. PAUSADO.");
+    }
+    else{
+        escreveString(10,25,"P: pausar.");
+    }
+    escreveString(10,40, "R: reiniciar.");
+    escreveString(10,55, "L: ligar/desligar iluminacao.");
+    escreveString(10,70,"Z: mostrar/esconder eixos de rotacao.");
+    escreveString(10,85,"X: considerar/desconsiderar inclinacao orbital.");
+    escreveString(10,100,"C: considerar/desconsiderar obliquidade da orbita.");
+    escreveString(10,115,"O: mostrar/esconder orbitas dos planetas.");
+    escreveString(10,130,"V: mostrar/esconder eixos ordenados do glut.");
+    escreveString(10,145,"ESC: menu de pause.");
     retornaPerspectiva();
 }

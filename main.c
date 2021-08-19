@@ -71,7 +71,7 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
     simul_pausada = 0;
     inicializaVetEstados(vet_estados);
     // inicializaAstros(vet_astros);
-     inicializaAstrosReal(vet_astros);
+    inicializaAstrosReal(vet_astros);
     inicializaObservadores(vet_obs);
 }
 
@@ -88,7 +88,7 @@ void desenhaMinhaCena(){
             glutSetCursor(GLUT_CURSOR_NONE);
 
             desenhaAstros(vet_astros, vet_estados);
-            escreveHud();
+            escreveHud(obs_atual, simul_pausada);
 
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
@@ -152,7 +152,7 @@ void redimensionar(int width, int height){
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(ang_perspec, fAspect, 0.5, 1000);
+    gluPerspective(ang_perspec, fAspect, 0.5, 2000);
 
     atualizarObservador(vet_obs[obs_atual]);
 
@@ -400,7 +400,7 @@ int main(int argc, char** argv)
     glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(600, 600);
+    glutInitWindowSize(700, 700);
     glutInitWindowPosition(600, 100);
 
     glutCreateWindow("tp2 teste");
