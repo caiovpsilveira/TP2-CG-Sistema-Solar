@@ -69,7 +69,8 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
 
     simul_pausada = 0;
     inicializaVetEstados(vet_estados);
-    inicializaAstros(vet_astros);
+    // inicializaAstros(vet_astros);
+     inicializaAstrosReal(vet_astros);
     inicializaObservadores(vet_obs);
 }
 
@@ -132,7 +133,7 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
     }
 
     glutPostRedisplay();
-    glutTimerFunc(33, atualizaCena, 0); // por quê 33? 1000/33 = 30fps, 16:60
+    glutTimerFunc(33, atualizaCena, 0); // por quï¿½ 33? 1000/33 = 30fps, 16:60
 }
 
 void redimensionar(int width, int height){
@@ -388,7 +389,7 @@ void rodaMouse(int button, int dir, int x, int y){
     atualizarObservador(vet_obs[obs_atual]);
 }
 
-// função principal
+// funï¿½ï¿½o principal
 int main(int argc, char** argv)
 {
     imprimirInstrucoesConsole();
