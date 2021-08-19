@@ -20,6 +20,7 @@ void escreverTexto(int x, int y, char *string){
     retornaPerspectiva();
 }
 
+//escreve informacoes complementares sobre o planeta quando observador esta na CAM_ACOMPANHA
 void escreverInformacoesPlaneta(int x, int y, struct astro astro){
     char str_final[50];
     char str_aux[50];
@@ -53,6 +54,7 @@ void escreverInformacoesPlaneta(int x, int y, struct astro astro){
     retornaPerspectiva();
 }
 
+//escreve na tela TELA_MENU
 void escreverMenuPrincipal(){
     projecaoOrto();
     escreveString(10,10, "Trabalho Pratico 2");
@@ -64,9 +66,7 @@ void escreverMenuPrincipal(){
     retornaPerspectiva();
 }
 
-//C: Controles
-//X: creditos
-//I: informacoes extras
+//escreve na tela TELA_MENU_PAUSE
 void escreveMenuPause(){
     projecaoOrto();
     escreveString(10,15, "Pausado");
@@ -77,6 +77,7 @@ void escreveMenuPause(){
     retornaPerspectiva();
 }
 
+//escreve na tela TELA_CREDITOS
 void escreveCreditos(){
     projecaoOrto();
     escreveString(10,15, "Creditos");
@@ -85,6 +86,7 @@ void escreveCreditos(){
     retornaPerspectiva();
 }
 
+//escreve na tela TELA_CONTROLES
 void escreveControles(){
     projecaoOrto();
     escreveString(10,15, "CONTROLES");
@@ -111,6 +113,7 @@ void escreveControles(){
     retornaPerspectiva();
 }
 
+//escreve na tela de informacoe extra
 void escreveInformacoes(){
     projecaoOrto();
     escreveString(10,10, "Informacoes");
@@ -119,9 +122,10 @@ void escreveInformacoes(){
     retornaPerspectiva();
 }
 
+//escreve na tela TELA_PLANETAS os controles de toggle de estado de desenho
 void escreveHud(){
     projecaoOrto();
-    escreveString(10,10,"P: pausar simulacao.");
+    escreveString(10,10,"P: pausar.");
     escreveString(10,25, "L: ligar/desligar iluminacao.");
     escreveString(10,40,"Z: mostrar/esconder eixos de rotacao.");
     escreveString(10,55,"X: considerar/desconsiderar inclinacao orbital.");

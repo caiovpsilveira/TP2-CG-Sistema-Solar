@@ -1,4 +1,4 @@
-//retirada do exemplo de marte
+//Funcao de desenhar uma esfera, retirada do exemplo de marte
 void solidSphere(int radius, int stacks, int columns){
     // cria uma quádrica
     GLUquadric* quadObj = gluNewQuadric();
@@ -16,6 +16,7 @@ void solidSphere(int radius, int stacks, int columns){
     gluDeleteQuadric(quadObj);
 }
 
+//desenhas os eixos x,y,z , nas cores r,g,b.
 void desenhaEixosOrdenados(){
     int ilumHab;
     glGetIntegerv(GL_LIGHTING, &ilumHab); //GL_LIGHTING estava habilitado antes de chamar a funcao?
@@ -46,6 +47,7 @@ void desenhaEixosOrdenados(){
     }
 }
 
+//desenha a orbita de um astro. Considera a posicao 0,0,0 como centro do movimento
 void desenhaOrbita(struct astro astro){
     int i, j;
     int ilumHab;
@@ -69,6 +71,7 @@ void desenhaOrbita(struct astro astro){
     glEnable(GL_TEXTURE_2D);
 }
 
+//desenha um eixo paralelo ao eixo Z do planeta. Sera rotacionado caso a inclinacao orbital e obliquidade orbital estejam ativados
 void desenhaEixoRot(struct astro astro){
     int ilumHab;
     glGetIntegerv(GL_LIGHTING, &ilumHab);

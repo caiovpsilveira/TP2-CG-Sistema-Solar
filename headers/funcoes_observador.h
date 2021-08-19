@@ -45,6 +45,7 @@ void limitarAngulosObservador(struct observador * obs){
     }
 }
 
+//possibilitar que o observador vire de "ponta-cabeca"
 void corrigirUpVectorObservador(struct observador * obs){
     if(obs->phi>=0 && obs->phi<M_PI){
         obs->upz=-1;
@@ -54,6 +55,7 @@ void corrigirUpVectorObservador(struct observador * obs){
     }
 }
 
+//atualiza a funcao gluLookAt com as novas coordenadas e angulos de obs
 void atualizarObservador(struct observador obs){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -61,6 +63,7 @@ void atualizarObservador(struct observador obs){
     glutPostRedisplay();
 }
 
+//atualizaz a posicao do observador para corresponder a posicao acima do planeta
 void atualizaCamAcompanha(struct astro * vet_astros, struct observador * obs, int n_astro, int * vet_estados){
     obs->xpos = vet_astros[n_astro].raio_trans * cos(vet_astros[n_astro].ang_trans);
     obs->ypos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].ang_trans);

@@ -46,7 +46,7 @@ GLuint carregaTextura(const char* caminho){
     return idTextura;
 }
 
-//https://www.solarsystemscope.com/textures/
+//Fonte das texturas: https://www.solarsystemscope.com/textures/
 void inicializarTexturas(struct astro * vet_astros){
 
     int i;
@@ -66,6 +66,7 @@ void inicializarTexturas(struct astro * vet_astros){
     }
 }
 
+//inicializacao do vetor que passa alguns estados de desenho pras funcoes de desenho
 void inicializaVetEstados(int * vet_estados){
     vet_estados[EIXOS_ORDEN] = 0;
     vet_estados[EIXO_ROT] = 1;
