@@ -1,5 +1,8 @@
-void escreveString(int x, int y, char *string){
+//aceita escrever \n. Retorna o numero de \n escritos
+int escreveStringFormatada(int x, int y, char *string){
     char *c;
+    int offset = 15;
+    int i=0;
     int ilumHab;
 
     glGetIntegerv(GL_LIGHTING, &ilumHab);//GL_LIGHTING estava habilitado antes de chamar a funcao?
@@ -7,151 +10,189 @@ void escreveString(int x, int y, char *string){
 
     glColor3f(1,1,1);
     glRasterPos2f(x, y);
-    for (c = string; *c != '\0'; c++) glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
+    for (c = string; *c != '\0'; c++){
+        if(*c == '\n'){
+            i++;
+            glRasterPos2f(x, y+i*offset);
+        }
+        else{
+            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c);
+        }
+    }
 
     if(ilumHab){
         glEnable(GL_LIGHTING);
     }
-}
 
-void escreverTexto(int x, int y, char *string){
-    projecaoOrto();
-    escreveString(x, y, string);
-    retornaPerspectiva();
+    return i;
 }
 
 //escreve informacoes complementares sobre o planeta quando observador esta na CAM_ACOMPANHA
 void escreverInformacoesPlaneta(int x, int y, struct astro astro){
     char str_final[50];
     char str_aux[50];
+    int i=0;
+    int offset = 15;
 
     projecaoOrto();
 
     strncpy(str_final, "Nome: ", 50);
     strcat(str_final, astro.nome);
-    escreveString(x, y, str_final);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
 
-    strncpy(str_final, "Diametro: ", 50);
+    strncpy(str_final, "\nDiametro: ", 50);
     sprintf(str_aux, "%.0f", 2*astro.raio_esf);
     strcat(str_final, str_aux);
-    escreveString(x, y+15, str_final);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
 
-    strncpy(str_final, "Raio de translacao: ", 50);
+    strncpy(str_final, "\nRaio de translacao: ", 50);
     sprintf(str_aux, "%.0f", astro.raio_trans);
     strcat(str_final, str_aux);
-    escreveString(x, y+30, str_final);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
 
-    strncpy(str_final, "Obliquidade da orbita (graus): ", 50);
+    strncpy(str_final, "\nObliquidade da orbita (graus): ", 50);
     sprintf(str_aux, "%.2f", astro.obliquidade_orbita*180/M_PI);
     strcat(str_final, str_aux);
-    escreveString(x, y+45, str_final);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
 
-    strncpy(str_final, "Inclinacao orbital (graus): ", 50);
+    strncpy(str_final, "\nInclinacao orbital (graus): ", 50);
     sprintf(str_aux, "%.2f", astro.inclin_orbital*180/M_PI);
     strcat(str_final, str_aux);
-    escreveString(x, y+60, str_final);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
 
     retornaPerspectiva();
 }
 
 //escreve na tela TELA_MENU
-void escreverMenuPrincipal(){
+void escreverMenuPrincipal(int x, int y){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
-    escreveString(10,10, "Trabalho Pratico 2");
-    escreveString(10, 20, "Aperte espaco para comecar");
-    escreveString(10, 45, "Aperte C para ver os controles");
-    escreveString(10,60, "Aperte Z para ver os creditos");
-    escreveString(10,75, "Aperte I para ver o que cada informacao dos planetas significa");
-    escreveString(10,90, "Aperte ESC para sair");
+
+    i += escreveStringFormatada(x, y + i*offset, "Trabalho Pratico 2\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte espaco para comecar\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte C para ver os controles\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte Z para ver os creditos\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte I para ver o que cada informacao dos planetas significa\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte ESC para sair\n");
+
     retornaPerspectiva();
 }
 
 //escreve na tela TELA_MENU_PAUSE
-void escreveMenuPause(){
+void escreveMenuPause(int x, int y){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
-    escreveString(10,15, "Pausado");
-    escreveString(10, 30, "Aperte esc para voltar a tela anterior ou X para ir para o menu principal");
-    escreveString(10, 45, "Aperte C para ver os controles");
-    escreveString(10,60, "Aperte Z para ver os creditos");
-    escreveString(10,75, "Aperte I para ver o que cada informacao dos planetas significa");
+
+    i += escreveStringFormatada(x, y + i*offset, "Pausado\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte esc para voltar a tela anterior ou X para ir para o menu principal\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte C para ver os controles\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte Z para ver os creditos\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte I para ver o que cada informacao dos planetas significa\n");
+
     retornaPerspectiva();
 }
 
 //escreve na tela TELA_CREDITOS
-void escreveCreditos(){
+void escreveCreditos(int x, int y){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
-    escreveString(10,15, "Creditos");
-    escreveString(10, 30, "Abdul Kevin e Caio Vinicius");
-    escreveString(10, 45, "Aperte esc para voltar a tela anterior");
+
+    i += escreveStringFormatada(x, y + i*offset, "Creditos\n");
+    i += escreveStringFormatada(x, y + i*offset, "Abdul Kevin e Caio Vinicius\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte esc para voltar a tela anterior\n");
+
     retornaPerspectiva();
 }
 
 //escreve na tela TELA_CONTROLES
-void escreveControles(){
+void escreveControles(int x, int y){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
-    escreveString(10,15, "CONTROLES");
-    escreveString(10,30, "CAMERA");
-    escreveString(10,45,"Aperte 1, 2, 3 ou 4 para alterar a camera");
-    escreveString(10,60,"1: camera superior, 2: camera frontal, 3: camera livre, 4: camera acompanha planeta.");
-    escreveString(10,75,"CONTROLE DE CAMERA LIVRE:");
-    escreveString(10,90,"W A S D: movimentacao");
-    escreveString(10,105,"Mexer o cursor: mudar direcao da camera");
-    escreveString(10,120,"MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n\n");
-    escreveString(10,135,"CONTROLE DE CAMERA QUE ACOMPANHA:");
-    escreveString(10,150,"Aperta espaco para trocar o planeta.");
-    escreveString(10,200,"DENTRO DA SIMULACAO:");
-    escreveString(10,215,"R: reiniciar simulacao");
-    escreveString(10,230,"P: pausar simulacao");
-    escreveString(10,245,"ESC: Ir para o menu de pause");
-    escreveString(10,260,"L: ligar/desligar iluminacao.");
-    escreveString(10,275,"Z: mostrar/esconder eixos de rotacao.");
-    escreveString(10,290,"X: considerar/desconsiderar inclinacao orbital.");
-    escreveString(10,305,"C: considerar/desconsiderar obliquidade da orbita.");
-    escreveString(10, 320,"O: mostrar/esconder orbitas dos planetas.");
-    escreveString(10,335,"V: mostrar/esconder eixos ordenados do glut.");
-    escreveString(10, 370, "Aperte esc para voltar a tela anterior");
+
+    i += escreveStringFormatada(x, y + i*offset, "CONTROLES\n");
+    i += escreveStringFormatada(x, y + i*offset, "CAMERA\n");
+    i += escreveStringFormatada(x, y + i*offset,"Aperte 1, 2, 3 ou 4 para alterar a camera\n");
+    i += escreveStringFormatada(x, y + i*offset,"1: camera superior, 2: camera frontal,\n3: camera livre, 4: camera acompanha planeta.\n");
+    i += escreveStringFormatada(x, y + i*offset,"CONTROLE DE CAMERA LIVRE:\n");
+    i += escreveStringFormatada(x, y + i*offset,"W A S D: movimentacao\n");
+    i += escreveStringFormatada(x, y + i*offset,"Mexer o cursor: mudar direcao da camera\n");
+    i += escreveStringFormatada(x, y + i*offset,"MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n");
+    i += escreveStringFormatada(x, y + i*offset,"CONTROLE DE CAMERA QUE ACOMPANHA:\n");
+    i += escreveStringFormatada(x, y + i*offset,"Aperta espaco para trocar o planeta.\n");
+    i += escreveStringFormatada(x, y + i*offset,"DENTRO DA SIMULACAO:\n");
+    i += escreveStringFormatada(x, y + i*offset,"R: reiniciar simulacao\n");
+    i += escreveStringFormatada(x, y + i*offset,"P: pausar simulacao\n");
+    i += escreveStringFormatada(x, y + i*offset,"ESC: Ir para o menu de pause\n");
+    i += escreveStringFormatada(x, y + i*offset,"L: ligar/desligar iluminacao.\n");
+    i += escreveStringFormatada(x, y + i*offset,"Z: mostrar/esconder eixos de rotacao.\n");
+    i += escreveStringFormatada(x, y + i*offset,"X: considerar/desconsiderar inclinacao orbital.\n");
+    i += escreveStringFormatada(x, y + i*offset,"C: considerar/desconsiderar obliquidade da orbita.\n");
+    i += escreveStringFormatada(x, y + i*offset,"O: mostrar/esconder orbitas dos planetas.\n");
+    i += escreveStringFormatada(x, y + i*offset,"V: mostrar/esconder eixos ordenados do glut.\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte esc para voltar a tela anterior\n");
+
     retornaPerspectiva();
 }
 
 //escreve na tela de informacoe extra
-void escreveInformacoes(){
+void escreveInformacoes(int x, int y){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
-    escreveString(10,10, "Informacoes");
-    escreveString(10, 20, "Escrever o que cada informacao dos planetas significa");
-    escreveString(10, 45, "Aperte esc para voltar a tela anterior");
+
+    i += escreveStringFormatada(x, y + i*offset, "Informacoes\n");
+    i += escreveStringFormatada(x, y + i*offset, "Escrever o que cada informacao dos planetas significa\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte esc para voltar a tela anterior\n");
+
     retornaPerspectiva();
 }
 
 //escreve na tela TELA_PLANETAS os controles de toggle de estado de desenho
-void escreveHud(int cam_atual, int ta_pausado){
+void escreveHud(int x, int y, int cam_atual, int ta_pausado){
+    int i=0;
+    int offset = 15;
+
     projecaoOrto();
+
     switch(cam_atual){
         case CAM_CIMA:
-            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera superior");
+            i += escreveStringFormatada(x, y + i*offset, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera superior\n");
             break;
         case CAM_FRONTAL:
-            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera frontal");
+            i += escreveStringFormatada(x, y + i*offset, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera frontal\n");
             break;
         case CAM_LIVRE:
-            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera livre");
+            i += escreveStringFormatada(x, y + i*offset, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera livre\n");
             break;
         case CAM_ACOMPANHA:
-            escreveString(10,10, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera centrando astros. Espaco para trocar o astro.");
+            i += escreveStringFormatada(x, y + i*offset, "Aperte 1, 2, 3 ou 4 para alternar a camera. Camera atual: Camera centrando astros. Espaco para trocar o astro.\n");
+            break;
+        default:
             break;
     }
     if(ta_pausado){
-        escreveString(10,25,"P: pausar. PAUSADO.");
+        i += escreveStringFormatada(x, y + i*offset,"P: pausar. PAUSADO.\n");
     }
     else{
-        escreveString(10,25,"P: pausar.");
+        i += escreveStringFormatada(x, y + i*offset,"P: pausar.\n");
     }
-    escreveString(10,40, "R: reiniciar.");
-    escreveString(10,55, "L: ligar/desligar iluminacao.");
-    escreveString(10,70,"Z: mostrar/esconder eixos de rotacao.");
-    escreveString(10,85,"X: considerar/desconsiderar inclinacao orbital.");
-    escreveString(10,100,"C: considerar/desconsiderar obliquidade da orbita.");
-    escreveString(10,115,"O: mostrar/esconder orbitas dos planetas.");
-    escreveString(10,130,"V: mostrar/esconder eixos ordenados do glut.");
-    escreveString(10,145,"ESC: menu de pause.");
+    i += escreveStringFormatada(x, y + i*offset, "R: reiniciar.\n");
+    i += escreveStringFormatada(x, y + i*offset, "L: ligar/desligar iluminacao.\n");
+    i += escreveStringFormatada(x, y + i*offset,"Z: mostrar/esconder eixos de rotacao.\n");
+    i += escreveStringFormatada(x, y + i*offset,"X: considerar/desconsiderar inclinacao orbital.\n");
+    i += escreveStringFormatada(x, y + i*offset,"C: considerar/desconsiderar obliquidade da orbita.\n");
+    i += escreveStringFormatada(x, y + i*offset,"O: mostrar/esconder orbitas dos planetas.\n");
+    i += escreveStringFormatada(x, y + i*offset,"V: mostrar/esconder eixos ordenados do glut.\n");
+    i += escreveStringFormatada(x, y + i*offset,"ESC: menu de pause.\n");
+
     retornaPerspectiva();
 }

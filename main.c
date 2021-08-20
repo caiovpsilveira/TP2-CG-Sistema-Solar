@@ -70,7 +70,7 @@ void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. 
 
     simul_pausada = 0;
     inicializaVetEstados(vet_estados);
-    // inicializaAstros(vet_astros);
+    //inicializaAstros(vet_astros);
     inicializaAstrosReal(vet_astros);
     inicializaObservadores(vet_obs);
 }
@@ -81,14 +81,14 @@ void desenhaMinhaCena(){
     switch(tela){
         case TELA_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreverMenuPrincipal();
+            escreverMenuPrincipal(10, 10);
         break;
         case TELA_PLANETAS:
             atualizarIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
 
             desenhaAstros(vet_astros, vet_estados);
-            escreveHud(obs_atual, simul_pausada);
+            escreveHud(10, 10, obs_atual, simul_pausada);
 
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
@@ -101,19 +101,19 @@ void desenhaMinhaCena(){
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveMenuPause();
+            escreveMenuPause(10, 10);
             break;
         case TELA_CREDITOS:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveCreditos();
+            escreveCreditos(10, 10);
             break;
         case TELA_CONTROLES:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveControles();
+            escreveControles(10, 10);
             break;
         case TELA_INFORMACOES:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveInformacoes();
+            escreveInformacoes(10, 10);
             break;
         default:
             break;
@@ -390,7 +390,7 @@ void rodaMouse(int button, int dir, int x, int y){
     atualizarObservador(vet_obs[obs_atual]);
 }
 
-// fun��o principal
+// funcao principal
 int main(int argc, char** argv)
 {
     imprimirInstrucoesConsole();
