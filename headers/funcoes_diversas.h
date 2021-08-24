@@ -25,9 +25,11 @@ void imprimirInstrucoesConsole(){
     printf("P: pausar\n");
     printf("ESC: tela menu\n");
     printf("L: ligar/desligar iluminacao.\n");
+    printf("H: mostrar/esconder HUD Controles.\n");
     printf("Z: mostrar/esconder eixos de rotacao.\n");
     printf("X: considerar/desconsiderar inclinacao orbital.\n");
     printf("C: considerar/desconsiderar obliquidade da orbita.\n");
+    printf("O: mostrar/esconder orbitas dos planetas.\n");
     printf("V: mostrar/esconder eixos ordenados do glut.\n");
 }
 
@@ -69,8 +71,9 @@ void inicializarTexturas(struct astro * vet_astros){
 //inicializacao do vetor que passa alguns estados de desenho pras funcoes de desenho
 void inicializaVetEstados(int * vet_estados){
     vet_estados[EIXOS_ORDEN] = 0;
-    vet_estados[EIXO_ROT] = 1;
+    vet_estados[EIXO_ROT] = 0;
     vet_estados[INC_ORBITAL] = 1;
     vet_estados[OBLIQ_ORBITA] = 1;
-    vet_estados[ORBITAS] = 1;
+    vet_estados[ORBITAS] = 0;
+    vet_estados[HUD_CONTROLES] = 0;
 }

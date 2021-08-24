@@ -62,7 +62,7 @@ void setup(){   //setup inicial
 void inicializaTudo(){  //estados que podem ser alterados ao longo da execucao. Essa funcao os coloca em um estado inicial e pode ser usada para reiniciar
     obs_atual = CAM_CIMA;
     astro_atual = 0;
-    ang_perspec = 45;
+    ang_perspec = 60;
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -81,39 +81,46 @@ void desenhaMinhaCena(){
     switch(tela){
         case TELA_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreverMenuPrincipal(10, 10);
+            escreverMenuPrincipal(15, 15);
         break;
         case TELA_PLANETAS:
             atualizarIluminacao();
             glutSetCursor(GLUT_CURSOR_NONE);
 
             desenhaAstros(vet_astros, vet_estados);
-            escreveHud(10, 10, obs_atual, simul_pausada);
+            if(vet_estados[HUD_CONTROLES]){
+                escreveHud(15, 15, obs_atual, simul_pausada);
+            }
+            else{
+                projecaoOrto();
+                escreveStringFormatada(15,15, "Aperte H para retornar a HUD.");
+                retornaPerspectiva();
+            }
 
             if(vet_estados[EIXOS_ORDEN]){
                 desenhaEixosOrdenados();
             }
 
             if(obs_atual == CAM_ACOMPANHA){
-                escreverInformacoesPlaneta(30,500, vet_astros[astro_atual]);
+                escreverInformacoesPlaneta(15,500, vet_astros[astro_atual]);
             }
 
             break;
         case TELA_PAUSE_MENU:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveMenuPause(10, 10);
+            escreveMenuPause(15, 15);
             break;
         case TELA_CREDITOS:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveCreditos(10, 10);
+            escreveCreditos(15, 15);
             break;
         case TELA_CONTROLES:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveControles(10, 10);
+            escreveControles(15, 15);
             break;
         case TELA_INFORMACOES:
             glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-            escreveInformacoes(10, 10);
+            escreveInformacoes(15, 15);
             break;
         default:
             break;
@@ -152,7 +159,7 @@ void redimensionar(int width, int height){
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(ang_perspec, fAspect, 0.5, 2000);
+    gluPerspective(ang_perspec, fAspect, 0.5, 5000);
 
     atualizarObservador(vet_obs[obs_atual]);
 
@@ -204,6 +211,12 @@ void teclaPressionada(unsigned char key, int x, int y){
         if(tela==TELA_PLANETAS){
             vet_obs[obs_atual].xpos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[0] * sinal_horizontal;
             vet_obs[obs_atual].ypos -= vet_obs[obs_atual].velocidade * vetorPerpendicularXY[1] * sinal_horizontal;
+        }
+        break;
+    case 'H':
+    case 'h':
+        if(tela==TELA_PLANETAS){
+            toggleEstado(HUD_CONTROLES);
         }
         break;
     case 'I':

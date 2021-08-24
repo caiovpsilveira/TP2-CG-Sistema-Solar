@@ -9,6 +9,7 @@ void atualizarIluminacao(){
     float lightSpec0[] = { 1.0, 1.0, 1.0, 1.0 };
     float lightPos0[] = { 0.0, 0.0, 0.0, 1 }; //ultimo parametro: posicional :1 ou direcional:0
     float globAmb[] = { 0.2, 0.2, 0.2, 1.0 };
+    float linear_at[] = {0.001};
     int localViewer = 1;    //0: specular em direcao ao eixo z, outro: em direcao ao sistema do observador
 
     // Definindo as propriedades do material
@@ -21,6 +22,7 @@ void atualizarIluminacao(){
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDif0);
     glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpec0);
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+    glLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, linear_at);
 
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, localViewer);// Enable local viewpoint

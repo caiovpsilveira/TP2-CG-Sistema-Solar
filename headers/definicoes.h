@@ -1,6 +1,6 @@
 #define NUM_SLICES 200
 #define NUM_STACKS 200
-#define PONTOS_CIRCULO 100
+#define PONTOS_CIRCULO 300
 
 #define TAM_VET_ASTROS 9
 
@@ -19,7 +19,8 @@
 #define INC_ORBITAL 2
 #define OBLIQ_ORBITA 3
 #define ORBITAS 4
-#define TAM_VET_ESTADOS 5
+#define HUD_CONTROLES 5
+#define TAM_VET_ESTADOS 6
 
 #define CAM_CIMA 0
 #define CAM_FRONTAL 1
