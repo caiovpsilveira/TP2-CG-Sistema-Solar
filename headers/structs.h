@@ -12,8 +12,8 @@ struct textura {
 
 struct astro{
     char nome[TAM_STR_ASTRO];
-    float raio_esf; //tamanho da esfera
-    float raio_trans;
+    double raio_esf; //tamanho da esfera
+    double raio_trans;
     float ang_rot;
     float ang_trans;    //considerando uma trajetoria circular
     float vel_rot; //velocidade angular de rotação (radianos)
@@ -27,8 +27,8 @@ struct observador{
     float theta;    //coordenadas polares
     float phi;
     float velocidade;   //se a velocidade for 0, a camera sera fixa em um ponto, e so poder olhar em volta
-    float xpos;
-    float ypos;
-    float zpos;
+    double xpos;
+    double ypos;
+    double zpos;
     int upz;
 };

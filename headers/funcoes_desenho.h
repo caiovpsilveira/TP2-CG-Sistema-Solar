@@ -1,5 +1,5 @@
 //Funcao de desenhar uma esfera, retirada do exemplo de marte
-void solidSphere(int radius, int stacks, int columns){
+void solidSphere(double radius, int stacks, int columns){
     // cria uma quádrica
     GLUquadric* quadObj = gluNewQuadric();
     // estilo preenchido... poderia ser GLU_LINE, GLU_SILHOUETTE

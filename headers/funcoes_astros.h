@@ -53,7 +53,7 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[3].vel_rot = M_PI/24;
     vet_astros[3].vel_trans = M_PI/180;
     vet_astros[3].obliquidade_orbita = 0.4084;
-    vet_astros[3].inclin_orbital = 0;
+    vet_astros[3].inclin_orbital = M_PI_4;
 
     //MARTE
     vet_astros[4].raio_esf = 6;

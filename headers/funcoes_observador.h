@@ -65,12 +65,14 @@ void atualizarObservador(struct observador obs){
 
 //atualizaz a posicao do observador para corresponder a posicao acima do planeta
 void atualizaCamAcompanha(struct astro * vet_astros, struct observador * obs, int n_astro, int * vet_estados){
-    obs->xpos = vet_astros[n_astro].raio_trans * cos(vet_astros[n_astro].ang_trans);
-    obs->ypos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].ang_trans);
     if(vet_estados[INC_ORBITAL]){
-        obs->zpos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].inclin_orbital) * sin(vet_astros[n_astro].ang_trans) + 50;
+        obs->xpos = vet_astros[n_astro].raio_trans * cos(vet_astros[n_astro].ang_trans);
+        obs->ypos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].ang_trans) * cos(vet_astros[n_astro].inclin_orbital);
+        obs->zpos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].inclin_orbital) * sin(vet_astros[n_astro].ang_trans) + 6*vet_astros[n_astro].raio_esf;
     }
     else{
-        obs->zpos = 50;
+        obs->xpos = vet_astros[n_astro].raio_trans * cos(vet_astros[n_astro].ang_trans);
+        obs->ypos = vet_astros[n_astro].raio_trans * sin(vet_astros[n_astro].ang_trans);
+        obs->zpos = 6*vet_astros[n_astro].raio_esf;
     }
 }
