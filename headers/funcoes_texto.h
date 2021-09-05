@@ -65,6 +65,16 @@ void escreverInformacoesPlaneta(int x, int y, struct astro astro){
     strcat(str_final, str_aux);
     i += escreveStringFormatada(x, y+i*offset, str_final);
 
+    strncpy(str_final, "\nMassa (10^24kg): ", 50);
+    sprintf(str_aux, "%.2f", astro.massa);
+    strcat(str_final, str_aux);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
+
+     strncpy(str_final, "\nTemperatura (C): ", 50);
+    sprintf(str_aux, "%.2f", astro.temperatura);
+    strcat(str_final, str_aux);
+    i += escreveStringFormatada(x, y+i*offset, str_final);
+
     retornaPerspectiva();
 }
 
@@ -110,7 +120,7 @@ void escreveCreditos(int x, int y){
 
     i += escreveStringFormatada(x, y + i*offset, "Creditos\n");
     i += escreveStringFormatada(x, y + i*offset, "Abdul Kevin e Caio Vinicius\n");
-    i += escreveStringFormatada(x, y + i*offset, "\nEsse trabalho foi desenvolvido no âmbito da \ndisciplina Computação Gráfica 2021.1\n");
+    i += escreveStringFormatada(x, y + i*offset, "\nEsse trabalho foi desenvolvido no ambito da \ndisciplina Computação Grafica 2021.1\n");
     i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();
@@ -156,10 +166,12 @@ void escreveInformacoes(int x, int y){
     projecaoOrto();
 
     i += escreveStringFormatada(x, y + i*offset, "Informacoes\n");
-    i += escreveStringFormatada(x, y + i*offset, "Diâmetro (km) - O diâmetro do planeta no equador, \na distância através do centro do planeta de um ponto no \nequador ao lado oposto, em quilômetros ou milhas.\n\n");
-    i +=escreveStringFormatada(x, y+ i*offset,"Distância do Sol (10^6 km) - Esta é a distância média \ndo planeta ao Sol em milhões de quilômetros ou \nmilhões de milhas, também conhecida como semi-eixo \nmaior. Todos os planetas têm órbitas elípticas, não \nperfeitamente circulares; portanto, há um ponto na \nórbita em que o planeta está mais próximo do Sol, o \nperiélio, e um ponto mais distante do Sol, o afélio. \nA distância média do Sol está a meio caminho entre \nesses dois valores. A distância média da Terra ao Sol \né definida como 1 Unidade Astronômica (UA), então a \ntabela de razão fornece essa distância em UA.\n\n");
-    i += escreveStringFormatada(x, y + i*offset, "Obliquidade em relação à órbita (graus) - o ângulo em \ngraus do eixo de um planeta (a linha imaginária que \natravessa o centro do planeta dos pólos norte a sul) \né inclinado em relação a uma linha perpendicular à \nórbita do planeta em torno do Sol, ao norte pólo \ndefinido pela regra da mão direita. Vênus gira em uma \ndireção retrógrada, oposta aos outros planetas, então \na inclinação é de quase 180 graus, ele é considerado \ngirando com seu \"topo\", ou pólo norte apontando \"para baixo\" (sul). Urano gira quase de lado em \nrelação à órbita, Plutão está apontando ligeiramente \"para baixo\". As relações com a Terra referem-se ao eixo sem referência ao norte ou ao sul.\n\n");
-    i += escreveStringFormatada(x, y + i*offset, "Inclinação Orbital (graus) - O ângulo em graus em que \nos planetas orbitam ao redor do Sol são inclinados em \nrelação ao plano da eclíptica. O plano eclíptico é \ndefinido como o plano que contém a órbita da Terra, \nentão a inclinação da Terra é 0.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Diametro (km) - O diametro do planeta no equador, \na distancia atraves do centro do planeta de um ponto no \nequador ao lado oposto, em quilometros ou milhas.\n\n");
+    i +=escreveStringFormatada(x, y+ i*offset,"Distancia do Sol (10^6 km) - Esta e a distancia media \ndo planeta ao Sol em milhoes de quilometros ou \nmilhoes de milhas, tambem conhecida como semi-eixo \nmaior. Todos os planetas tem orbitas elipticas, noo \nperfeitamente circulares; portanto, ha um ponto na \norbita em que o planeta esta mais proximo do Sol, o \nperielio, e um ponto mais distante do Sol, o afelio. \nA distencia media do Sol este a meio caminho entre \nesses dois valores. A distancia media da Terra ao Sol \ne definida como 1 Unidade Astronomica (UA), entao a \ntabela de razao fornece essa distancia em UA.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Obliquidade em relacao a orbita (graus) - o angulo em \ngraus do eixo de um planeta (a linha imaginaria que \natravessa o centro do planeta dos polos norte a sul) \ne inclinado em relacaoo a uma linha perpendicular a \norbita do planeta em torno do Sol, ao norte polo \ndefinido pela regra da mao direita. Venus gira em uma \ndirecao retrograda, oposta aos outros planetas, entao \na inclinacao e de quase 180 graus, ele e considerado \ngirando com seu \"topo\", ou polo norte apontando \n\"para baixo\" (sul). Urano gira quase de lado em \nrelacao a orbita, Plutão esta apontando ligeiramente \n\"para baixo\". As relacoes com a Terra referem-se ao \neixo sem referencia ao norte ou ao sul.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Inclinacao Orbital (graus) - O angulo em graus em que \nos planetas orbitam ao redor do Sol sao inclinados em \nrelacao ao plano da ecliptica. O plano ecliptico e \ndefinido como o plano que contem a orbita da Terra, \nentao a inclinacao da Terra e 0.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Massa (10^24 kg ou 10^21 toneladas) - Esta e a massa do \nplaneta em setilhoes (1 seguido por 24 zeros) \nquilogramas ou sextiliones (1 seguido por 21 zeros) \ntoneladas. Estritamente falando, toneladas sao \nmedidas de peso, nao de massa, mas sao usadas aqui \npara representar a massa de uma tonelada de material \nsob a gravidade da Terra.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Temperatura media (C ou F) - Esta e a temperatura \nmedia em toda a superficie do planeta (ou para os \ngigantes gasosos no nivel de uma barra) em graus C \n(Celsius ou Centigrados) ou graus F (Fahrenheit). Para \nMercurio e a Lua, por exemplo, esta e uma media sobre \nos hemisferios iluminados pelo sol (muito quentes) e \nescuros (muito frios) e, portanto, não e \nrepresentativa de nenhuma regiao do planeta, e a \nmaior parte da superficie e bastante diferente desta \nvalor medio. Tal como acontece com a Terra, havera \ntendencia a variacoes de temperatura do equador aos \npolos, do lado diurno ao noturno, e mudancas sazonais \nna maioria dos planetas.\n\n");
     i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();
@@ -172,7 +184,7 @@ void escreveHud(int x, int y, int cam_atual, int ta_pausado){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "Os planetas estao 1000x maiores, e o sol esta 20x maior.\nAs distancias entre as orbitas estao em escala 1:1.\n");
+    i += escreveStringFormatada(x, y + i*offset, "Os planetas estao 1000x maiores, e o sol esta 50x menor.\nAs distancias entre as orbitas estao em escala 1:1.\n");
 
     switch(cam_atual){
         case CAM_CIMA:

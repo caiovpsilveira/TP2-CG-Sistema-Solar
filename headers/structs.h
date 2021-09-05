@@ -16,10 +16,12 @@ struct astro{
     double raio_trans;
     float ang_rot;
     float ang_trans;    //considerando uma trajetoria circular
-    float vel_rot; //velocidade angular de rotação (radianos)
-    float vel_trans;    //velocidade angular de rotação (radianos)
+    float vel_rot; //velocidade angular de rotaï¿½ï¿½o (radianos)
+    float vel_trans;    //velocidade angular de rotaï¿½ï¿½o (radianos)
     float inclin_orbital;  //diferenca entre o plano que contem a orbita do planeta e o plano que contem a orbita da terra
     float obliquidade_orbita; //diferenca entre o eixo de rotacao do planeta e o vetor perpendicular ao plano que contem sua orbita.
+    float massa;
+    float temperatura;
     struct textura textura;
 };
 

@@ -43,21 +43,23 @@ Lista de itens adicionais implementados no jogo
 
 Screenshot da Simulação
 ==================
-![Cena de jogo](./screenshots/cena1.png "Cena 1")
-![Cena de jogo](./screenshots/cena2.png "Cena 2")
-![Cena de jogo](./screenshots/cena3.png "Cena 3")
+![Cena da Simulação](./screenshots/cena1.png "Cena 1")
+![Cena da Simulação](./screenshots/cena2.png "Cena 2")
+![Cena da Simulação](./screenshots/cena3.png "Cena 3")
 
 Desmostração em Video
 =====================
 
-![Video Youtube](./texturas/youtube_logo.png "Desmostração em video da simulação")
+![Video Youtube](./screenshots/youtube_logo.png "Desmostração em video da simulação")
   
 [Clique aqui para assistir o vídeo][6]
 
 # Referência
-- [Sol][1]
+- [Informações sobre as planetas][1]
+- [Texturas das Planetas][2]
 
 
-[1]: <link> (Imagen do Sol) 
+[1]: <https://nssdc.gsfc.nasa.gov/planetary/factsheet/> (Info) 
+[2]: <https://www.solarsystemscope.com/textures/> (Texturas) 
 
 [6]: <link> (Demostração)

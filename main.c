@@ -450,7 +450,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(700, 700);
     glutInitWindowPosition(600, 100);
 
-    glutCreateWindow("tp2 teste");
+    glutCreateWindow("TP2-Sistema Estelar");
 
     glutReshapeFunc(redimensionar);
     glutDisplayFunc(desenhaMinhaCena);

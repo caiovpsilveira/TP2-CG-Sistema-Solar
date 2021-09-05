@@ -24,6 +24,9 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[0].vel_trans = M_PI/180;
     vet_astros[0].obliquidade_orbita = 0;
     vet_astros[0].inclin_orbital = 0;
+    vet_astros[0].massa=1989000;
+    vet_astros[0].temperatura=5505;
+
 
     //MERCURIO
     vet_astros[1].raio_esf = 4879/2;
@@ -34,6 +37,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[1].vel_trans = M_PI/60;
     vet_astros[1].obliquidade_orbita = 5.934E-4;
     vet_astros[1].inclin_orbital = 0.12217;
+    vet_astros[1].massa=0.330;
+    vet_astros[1].temperatura=167;
 
     //VENUS
     vet_astros[2].raio_esf = 12104/2;
@@ -44,6 +49,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[2].vel_trans = M_PI/90;
     vet_astros[2].obliquidade_orbita = 3.0962;
     vet_astros[2].inclin_orbital = 0.05934;
+    vet_astros[2].massa=4.87;
+    vet_astros[2].temperatura=464;
 
     //TERRA
     vet_astros[3].raio_esf = 12756/2;
@@ -54,6 +61,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[3].vel_trans = M_PI/180;
     vet_astros[3].obliquidade_orbita = 0.4084;
     vet_astros[3].inclin_orbital = 0;
+    vet_astros[3].massa=5.97;
+    vet_astros[3].temperatura=15;
 
     //MARTE
     vet_astros[4].raio_esf = 6792/2;
@@ -64,6 +73,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[4].vel_trans = M_PI/240;
     vet_astros[4].obliquidade_orbita = 0.4398;
     vet_astros[4].inclin_orbital = 0.03316;
+    vet_astros[4].massa=0.642;
+    vet_astros[5].temperatura=-65;
 
     //JUPITER
     vet_astros[5].raio_esf = 142984/2;
@@ -74,6 +85,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[5].vel_trans = M_PI/300;
     vet_astros[5].obliquidade_orbita = 0.054;
     vet_astros[5].inclin_orbital = 0.022689;
+    vet_astros[5].massa=1898;
+    vet_astros[5].temperatura=-110;
 
     //SATURNO
     vet_astros[6].raio_esf = 120536/2;
@@ -84,6 +97,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[6].vel_trans = M_PI/360;
     vet_astros[6].obliquidade_orbita = 0.466;
     vet_astros[6].inclin_orbital = 0.04363;
+    vet_astros[6].massa=568;
+    vet_astros[6].temperatura=-140;
 
     //URANO
     vet_astros[7].raio_esf = 51118/2;
@@ -94,6 +109,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[7].vel_trans = M_PI/390;
     vet_astros[7].obliquidade_orbita = 1.7069;
     vet_astros[7].inclin_orbital = 0.013962;
+    vet_astros[7].massa=86.8;
+    vet_astros[7].temperatura=-195;
 
     //NETUNO
     vet_astros[8].raio_esf = 49528/2;
@@ -104,6 +121,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     vet_astros[8].vel_trans = M_PI/420;
     vet_astros[8].obliquidade_orbita = 0.493928;
     vet_astros[8].inclin_orbital = 0.031411;
+    vet_astros[8].massa=102;
+    vet_astros[8].temperatura=-200;
 
 
     int i;
