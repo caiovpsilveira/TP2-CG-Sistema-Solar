@@ -136,7 +136,7 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
         }
         if(obs_atual == CAM_ACOMPANHA){
             atualizaCamAcompanha(vet_astros, &vet_obs[obs_atual], astro_atual, vet_estados);
-            //atualizarObservador(vet_obs[obs_atual]);
+            atualizarObservador(vet_obs[obs_atual]);
         }
     }
 
@@ -161,7 +161,7 @@ void redimensionar(int width, int height){
     glLoadIdentity();
     gluPerspective(ang_perspec, fAspect, 0.5, 5000);
 
-    //atualizarObservador(vet_obs[obs_atual]);
+    atualizarObservador(vet_obs[obs_atual]);
 
     glMatrixMode(GL_MODELVIEW);
 }
@@ -372,7 +372,7 @@ void teclaPressionada(unsigned char key, int x, int y){
     default:
         break;
     }
-    //atualizarObservador(vet_obs[obs_atual]);
+    atualizarObservador(vet_obs[obs_atual]);
 }
 
 void posicionaCamera(int x, int y) {
@@ -393,6 +393,30 @@ void posicionaCamera(int x, int y) {
     }
 }
 
+void SpecialKeys(int key, int x, int y){
+    if(tela == TELA_PLANETAS){
+        switch(key){
+        case GLUT_KEY_RIGHT:
+            vet_obs[obs_atual].theta -= 0.04;
+            break;
+        case GLUT_KEY_LEFT:
+            vet_obs[obs_atual].theta += 0.04;
+            break;
+        case GLUT_KEY_UP:
+            vet_obs[obs_atual].phi += 0.04;
+            break;
+        case GLUT_KEY_DOWN:
+            vet_obs[obs_atual].phi -= 0.04;
+            break;
+        default:
+            break;
+        }
+        limitarAngulosObservador(&vet_obs[obs_atual]);
+        corrigirUpVectorObservador(&vet_obs[obs_atual]);
+        atualizarObservador(vet_obs[obs_atual]);
+    }
+}
+
 void rodaMouse(int button, int dir, int x, int y){
     if(tela==TELA_PLANETAS){
         if (dir > 0){ //roda pra cima
@@ -401,7 +425,7 @@ void rodaMouse(int button, int dir, int x, int y){
         else{
             vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
         }
-        //atualizarObservador(vet_obs[obs_atual]);
+        atualizarObservador(vet_obs[obs_atual]);
     }
 }
 
@@ -424,7 +448,8 @@ int main(int argc, char** argv)
     glutDisplayFunc(desenhaMinhaCena);
     glutMouseWheelFunc(rodaMouse);
     glutKeyboardFunc(teclaPressionada);
-    glutPassiveMotionFunc(posicionaCamera);
+    glutSpecialFunc(SpecialKeys);
+    //glutPassiveMotionFunc(posicionaCamera);
     glutTimerFunc(0, atualizaCena, 33);
 
     setup();
