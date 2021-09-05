@@ -110,6 +110,7 @@ void escreveCreditos(int x, int y){
 
     i += escreveStringFormatada(x, y + i*offset, "Creditos\n");
     i += escreveStringFormatada(x, y + i*offset, "Abdul Kevin e Caio Vinicius\n");
+    i += escreveStringFormatada(x, y + i*offset, "\nEsse trabalho foi desenvolvido no âmbito da \ndisciplina Computação Gráfica 2021.1\n");
     i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();
@@ -155,7 +156,10 @@ void escreveInformacoes(int x, int y){
     projecaoOrto();
 
     i += escreveStringFormatada(x, y + i*offset, "Informacoes\n");
-    i += escreveStringFormatada(x, y + i*offset, "Escrever o que cada informacao dos planetas significa\n");
+    i += escreveStringFormatada(x, y + i*offset, "Diâmetro (km ou milhas) - O diâmetro do planeta no equador, \na distância através do centro do planeta de um ponto no \nequador ao lado oposto, em quilômetros ou milhas.\n\n");
+    i +=escreveStringFormatada(x, y+ i*offset,"Distância do Sol (10^6 km ou 10^6 milhas) - Esta é a distância média \ndo planeta ao Sol em milhões de quilômetros ou \nmilhões de milhas, também conhecida como semi-eixo \nmaior. Todos os planetas têm órbitas elípticas, não \nperfeitamente circulares; portanto, há um ponto na \nórbita em que o planeta está mais próximo do Sol, o \nperiélio, e um ponto mais distante do Sol, o afélio. \nA distância média do Sol está a meio caminho entre \nesses dois valores. A distância média da Terra ao Sol \né definida como 1 Unidade Astronômica (UA), então a \ntabela de razão fornece essa distância em UA.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Obliquidade em relação à órbita (graus) - o ângulo em \ngraus do eixo de um planeta (a linha imaginária que \natravessa o centro do planeta dos pólos norte a sul) \né inclinado em relação a uma linha perpendicular à \nórbita do planeta em torno do Sol, ao norte pólo \ndefinido pela regra da mão direita. Vênus gira em uma \ndireção retrógrada, oposta aos outros planetas, então \na inclinação é de quase 180 graus, ele é considerado \ngirando com seu \"topo\", ou pólo norte apontando \"para baixo\" (sul). Urano gira quase de lado em \nrelação à órbita, Plutão está apontando ligeiramente \"para baixo\". As relações com a Terra referem-se ao eixo sem referência ao norte ou ao sul.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Inclinação Orbital (graus) - O ângulo em graus em que \nos planetas orbitam ao redor do Sol são inclinados em \nrelação ao plano da eclíptica. O plano eclíptico é \ndefinido como o plano que contém a órbita da Terra, \nentão a inclinação da Terra é 0.\n\n");
     i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();

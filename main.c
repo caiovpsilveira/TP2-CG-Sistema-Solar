@@ -381,8 +381,8 @@ void posicionaCamera(int x, int y) {
         xMouse = x;
         yMouse = y;
         glutWarpPointer(larg_janela/2,alt_janela/2);
-        vet_obs[obs_atual].theta -= (float)(xMouse - larg_janela/2)/500;
-        vet_obs[obs_atual].phi -= (float)(yMouse - alt_janela/2)/500;
+        vet_obs[obs_atual].theta -= (float)(xMouse - larg_janela/2)/2000;
+        vet_obs[obs_atual].phi -= (float)(yMouse - alt_janela/2)/2000;
         limitarAngulosObservador(&vet_obs[obs_atual]);
         corrigirUpVectorObservador(&vet_obs[obs_atual]);
         atualizarObservador(vet_obs[obs_atual]);
