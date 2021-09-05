@@ -136,7 +136,7 @@ void atualizaCena(int valorQualquer){   //UPDATE DA CENA
         }
         if(obs_atual == CAM_ACOMPANHA){
             atualizaCamAcompanha(vet_astros, &vet_obs[obs_atual], astro_atual, vet_estados);
-            atualizarObservador(vet_obs[obs_atual]);
+            //atualizarObservador(vet_obs[obs_atual]);
         }
     }
 
@@ -161,7 +161,7 @@ void redimensionar(int width, int height){
     glLoadIdentity();
     gluPerspective(ang_perspec, fAspect, 0.5, 5000);
 
-    atualizarObservador(vet_obs[obs_atual]);
+    //atualizarObservador(vet_obs[obs_atual]);
 
     glMatrixMode(GL_MODELVIEW);
 }
@@ -372,7 +372,7 @@ void teclaPressionada(unsigned char key, int x, int y){
     default:
         break;
     }
-    atualizarObservador(vet_obs[obs_atual]);
+    //atualizarObservador(vet_obs[obs_atual]);
 }
 
 void posicionaCamera(int x, int y) {
@@ -381,26 +381,28 @@ void posicionaCamera(int x, int y) {
         xMouse = x;
         yMouse = y;
         glutWarpPointer(larg_janela/2,alt_janela/2);
-        vet_obs[obs_atual].theta -= (float)(xMouse - larg_janela/2)/2000;
-        vet_obs[obs_atual].phi -= (float)(yMouse - alt_janela/2)/2000;
-        limitarAngulosObservador(&vet_obs[obs_atual]);
-        corrigirUpVectorObservador(&vet_obs[obs_atual]);
-        atualizarObservador(vet_obs[obs_atual]);
+        int deslocamentoX = xMouse - larg_janela/2;
+        int deslocamentoY = yMouse - alt_janela/2;
+        if(abs(deslocamentoX) < 200 && abs(deslocamentoY) < 200){ //evitar saltos na camera, principalmente quando entrar com  o cursor por fora da janela
+            vet_obs[obs_atual].theta -= (float)(deslocamentoX)/500;
+            vet_obs[obs_atual].phi -= (float)(deslocamentoY)/500; //500 e a sensibilidade
+            limitarAngulosObservador(&vet_obs[obs_atual]);
+            corrigirUpVectorObservador(&vet_obs[obs_atual]);
+            atualizarObservador(vet_obs[obs_atual]);
+        }
     }
 }
 
 void rodaMouse(int button, int dir, int x, int y){
-    if (dir > 0){ //roda pra cima
-        if(tela==TELA_PLANETAS){
-            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
+    if(tela==TELA_PLANETAS){
+        if (dir > 0){ //roda pra cima
+                vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
         }
-    }
-    else{
-        if(tela==TELA_PLANETAS){
+        else{
             vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
         }
+        //atualizarObservador(vet_obs[obs_atual]);
     }
-    atualizarObservador(vet_obs[obs_atual]);
 }
 
 // funcao principal

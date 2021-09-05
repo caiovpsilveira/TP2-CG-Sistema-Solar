@@ -16,7 +16,7 @@ void inicializaNomes(struct astro * vet_astros){
 void inicializaAstrosReal(struct astro * vet_astros){
 
     //SOL
-    vet_astros[0].raio_esf = 1.392E6/(2*50); //sol está 50x menor
+    vet_astros[0].raio_esf = 1.392E6/(2*50); //a escala do sol está 50x menor que a escala dos outros planetas
     vet_astros[0].raio_trans = 0;
     vet_astros[0].ang_rot = 0;
     vet_astros[0].ang_trans = 0;
@@ -28,8 +28,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //MERCURIO
     vet_astros[1].raio_esf = 4879/2;
     vet_astros[1].raio_trans = 	57.9E6;
-    vet_astros[1].ang_rot = 0.034;
-    vet_astros[1].ang_trans = 7.0;
+    vet_astros[1].ang_rot = 0;
+    vet_astros[1].ang_trans = 0;
     vet_astros[1].vel_rot = M_PI/100;
     vet_astros[1].vel_trans = M_PI/60;
     vet_astros[1].obliquidade_orbita = 5.934E-4;
@@ -38,8 +38,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //VENUS
     vet_astros[2].raio_esf = 12104/2;
     vet_astros[2].raio_trans = 108.2E6;
-    vet_astros[2].ang_rot = 177.4;
-    vet_astros[2].ang_trans = 3.4;
+    vet_astros[2].ang_rot = 0;
+    vet_astros[2].ang_trans = 0;
     vet_astros[2].vel_rot = M_PI/500;
     vet_astros[2].vel_trans = M_PI/90;
     vet_astros[2].obliquidade_orbita = 3.0962;
@@ -48,7 +48,7 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //TERRA
     vet_astros[3].raio_esf = 12756/2;
     vet_astros[3].raio_trans = 149.6E6;
-    vet_astros[3].ang_rot = 23.4;
+    vet_astros[3].ang_rot = 0;
     vet_astros[3].ang_trans = 0;
     vet_astros[3].vel_rot = M_PI/24;
     vet_astros[3].vel_trans = M_PI/180;
@@ -58,8 +58,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //MARTE
     vet_astros[4].raio_esf = 6792/2;
     vet_astros[4].raio_trans = 227.9E6;
-    vet_astros[4].ang_rot = 25.2;
-    vet_astros[4].ang_trans = 1.9;
+    vet_astros[4].ang_rot = 0;
+    vet_astros[4].ang_trans = 0;
     vet_astros[4].vel_rot = M_PI/24;
     vet_astros[4].vel_trans = M_PI/240;
     vet_astros[4].obliquidade_orbita = 0.4398;
@@ -68,8 +68,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //JUPITER
     vet_astros[5].raio_esf = 142984/2;
     vet_astros[5].raio_trans = 778.6E6;
-    vet_astros[5].ang_rot = 3.1;
-    vet_astros[5].ang_trans = 1.3;
+    vet_astros[5].ang_rot = 0;
+    vet_astros[5].ang_trans = 0;
     vet_astros[5].vel_rot = M_PI/10;
     vet_astros[5].vel_trans = M_PI/300;
     vet_astros[5].obliquidade_orbita = 0.054;
@@ -78,8 +78,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //SATURNO
     vet_astros[6].raio_esf = 120536/2;
     vet_astros[6].raio_trans = 1433.5E6;
-    vet_astros[6].ang_rot = 26.6;
-    vet_astros[6].ang_trans = 2.5;
+    vet_astros[6].ang_rot = 0;
+    vet_astros[6].ang_trans = 0;
     vet_astros[6].vel_rot = M_PI/10;
     vet_astros[6].vel_trans = M_PI/360;
     vet_astros[6].obliquidade_orbita = 0.466;
@@ -88,8 +88,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //URANO
     vet_astros[7].raio_esf = 51118/2;
     vet_astros[7].raio_trans = 2872.5E6;
-    vet_astros[7].ang_rot = 97.8;
-    vet_astros[7].ang_trans = 0.8;
+    vet_astros[7].ang_rot = 0;
+    vet_astros[7].ang_trans = 0;
     vet_astros[7].vel_rot = M_PI/17;
     vet_astros[7].vel_trans = M_PI/390;
     vet_astros[7].obliquidade_orbita = 1.7069;
@@ -98,8 +98,8 @@ void inicializaAstrosReal(struct astro * vet_astros){
     //NETUNO
     vet_astros[8].raio_esf = 49528/2;
     vet_astros[8].raio_trans = 4495.1E6;
-    vet_astros[8].ang_rot = 28.3;
-    vet_astros[8].ang_trans = 1.8;
+    vet_astros[8].ang_rot = 0;
+    vet_astros[8].ang_trans = 0;
     vet_astros[8].vel_rot = M_PI/16;
     vet_astros[8].vel_trans = M_PI/420;
     vet_astros[8].obliquidade_orbita = 0.493928;
