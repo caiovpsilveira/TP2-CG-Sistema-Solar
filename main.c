@@ -375,6 +375,7 @@ void teclaPressionada(unsigned char key, int x, int y){
     atualizarObservador(vet_obs[obs_atual]);
 }
 
+//FUNCOES DE POSICIONAR A CAMERA COM O MOUSE: obs: gera muitos callbacks e pesa mais a execucao
 void posicionaCamera(int x, int y) {
 
     if(tela==TELA_PLANETAS){
@@ -393,6 +394,19 @@ void posicionaCamera(int x, int y) {
     }
 }
 
+void rodaMouse(int button, int dir, int x, int y){
+    if(tela==TELA_PLANETAS){
+        if (dir > 0){ //roda pra cima
+                vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
+        }
+        else{
+            vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
+        }
+        atualizarObservador(vet_obs[obs_atual]);
+    }
+}
+
+//funcao de mexer a camera com as setinhas
 void SpecialKeys(int key, int x, int y){
     if(tela == TELA_PLANETAS){
         switch(key){
@@ -408,23 +422,17 @@ void SpecialKeys(int key, int x, int y){
         case GLUT_KEY_DOWN:
             vet_obs[obs_atual].phi -= 0.04;
             break;
+        case GLUT_KEY_PAGE_UP:
+            vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
+            break;
+        case GLUT_KEY_PAGE_DOWN:
+            vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
+            break;
         default:
             break;
         }
         limitarAngulosObservador(&vet_obs[obs_atual]);
         corrigirUpVectorObservador(&vet_obs[obs_atual]);
-        atualizarObservador(vet_obs[obs_atual]);
-    }
-}
-
-void rodaMouse(int button, int dir, int x, int y){
-    if(tela==TELA_PLANETAS){
-        if (dir > 0){ //roda pra cima
-                vet_obs[obs_atual].zpos += vet_obs[obs_atual].velocidade;
-        }
-        else{
-            vet_obs[obs_atual].zpos -= vet_obs[obs_atual].velocidade;
-        }
         atualizarObservador(vet_obs[obs_atual]);
     }
 }
@@ -446,10 +454,11 @@ int main(int argc, char** argv)
 
     glutReshapeFunc(redimensionar);
     glutDisplayFunc(desenhaMinhaCena);
-    glutMouseWheelFunc(rodaMouse);
     glutKeyboardFunc(teclaPressionada);
     glutSpecialFunc(SpecialKeys);
+    //Funcoes do mouse se utilizar
     //glutPassiveMotionFunc(posicionaCamera);
+    //glutMouseWheelFunc(rodaMouse);
     glutTimerFunc(0, atualizaCena, 33);
 
     setup();
