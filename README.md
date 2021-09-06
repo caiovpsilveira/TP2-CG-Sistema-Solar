@@ -52,7 +52,7 @@ Desmostração em Video
 
 ![Video Youtube](./screenshots/youtube_logo.png "Desmostração em video da simulação")
   
-[Clique aqui para assistir o vídeo][6]
+[Clique aqui para assistir o vídeo][3]
 
 # Referência
 - [Informações sobre as planetas][1]
@@ -62,4 +62,4 @@ Desmostração em Video
 [1]: <https://nssdc.gsfc.nasa.gov/planetary/factsheet/> (Info) 
 [2]: <https://www.solarsystemscope.com/textures/> (Texturas) 
 
-[6]: <https://youtu.be/w9ELCg7dJHo> (Demostração)
+[3]: <https://youtu.be/w9ELCg7dJHo> (Demostração)
