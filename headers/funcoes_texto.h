@@ -70,7 +70,7 @@ void escreverInformacoesPlaneta(int x, int y, struct astro astro){
     strcat(str_final, str_aux);
     i += escreveStringFormatada(x, y+i*offset, str_final);
 
-     strncpy(str_final, "\nTemperatura (C): ", 50);
+    strncpy(str_final, "\nTemperatura Media (C): ", 50);
     sprintf(str_aux, "%.2f", astro.temperatura);
     strcat(str_final, str_aux);
     i += escreveStringFormatada(x, y+i*offset, str_final);
@@ -85,11 +85,11 @@ void escreverMenuPrincipal(int x, int y){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "Trabalho Pratico 2\n");
+    i += escreveStringFormatada(x, y + i*offset, "Trabalho Pratico 2\n\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte espaco para comecar\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte C para ver os controles\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte Z para ver os creditos\n");
-    i += escreveStringFormatada(x, y + i*offset, "Aperte I para ver o que cada informacao dos planetas significa\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte I para ver o que cada informacao dos planetas significa\n\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte ESC para sair\n");
 
     retornaPerspectiva();
@@ -102,7 +102,7 @@ void escreveMenuPause(int x, int y){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "Pausado\n");
+    i += escreveStringFormatada(x, y + i*offset, "Pausado\n\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte C para ver os controles\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte Z para ver os creditos\n");
     i += escreveStringFormatada(x, y + i*offset, "Aperte I para ver o que cada informacao dos planetas significa\n");
@@ -118,10 +118,13 @@ void escreveCreditos(int x, int y){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "Creditos\n");
-    i += escreveStringFormatada(x, y + i*offset, "Abdul Kevin e Caio Vinicius\n");
-    i += escreveStringFormatada(x, y + i*offset, "\nEsse trabalho foi desenvolvido no ambito da \ndisciplina Computação Grafica 2021.1\n");
-    i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
+    i += escreveStringFormatada(x, y + i*offset, "Creditos\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Abdul Kevin e Caio Vinicius\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Esse trabalho foi desenvolvido no ambito da \ndisciplina Computação Grafica 2021.1\n");
+    i += escreveStringFormatada(x, y + i*offset, "Setembro 2021.\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "As texturas dos astros foram obtidas em https://www.solarsystemscope.com/textures/.\n");
+    i += escreveStringFormatada(x, y + i*offset, "Os dados dos planetas foram obtidos em https://nssdc.gsfc.nasa.gov/planetary/factsheet\n\n");
+    i += escreveStringFormatada(x, y + i*offset, "Aperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();
 }
@@ -133,14 +136,16 @@ void escreveControles(int x, int y){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "CONTROLES\n\n");
-    i += escreveStringFormatada(x, y + i*offset, "CAMERA\n");
+    i += escreveStringFormatada(x, y + i*offset,"CONTROLES\n\n");
+    i += escreveStringFormatada(x, y + i*offset,"CAMERA\n");
+    i += escreveStringFormatada(x, y + i*offset,"Para ativar o controle via mouse, e necessario descomentar as funcoes na main\n");
+    i += escreveStringFormatada(x, y + i*offset,"e compilar novamente. O mouse gera muitos callbacks, o que pesa na execucao.\n\n");
     i += escreveStringFormatada(x, y + i*offset,"Aperte 1, 2, 3 ou 4 para alterar a camera\n");
     i += escreveStringFormatada(x, y + i*offset,"1: camera superior, 2: camera frontal,\n3: camera livre, 4: camera acompanha planeta.\n\n");
     i += escreveStringFormatada(x, y + i*offset,"CONTROLE DE CAMERA LIVRE:\n");
     i += escreveStringFormatada(x, y + i*offset,"W A S D: movimentacao\n");
-    i += escreveStringFormatada(x, y + i*offset,"Mexer o cursor: mudar direcao da camera\n");
-    i += escreveStringFormatada(x, y + i*offset,"MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n");
+    i += escreveStringFormatada(x, y + i*offset,"Mexer o cursor / setas do teclado: mudar direcao da camera\n");
+    i += escreveStringFormatada(x, y + i*offset,"MWHEEL UP / Page up: Subir camera, MWHEEL DOWN / Page down: Descer camera\n");
     i += escreveStringFormatada(x, y + i*offset,"CONTROLE DE CAMERA QUE ACOMPANHA:\n");
     i += escreveStringFormatada(x, y + i*offset,"Aperta espaco para trocar o planeta.\n\n");
     i += escreveStringFormatada(x, y + i*offset,"DENTRO DA SIMULACAO:\n");
@@ -153,7 +158,7 @@ void escreveControles(int x, int y){
     i += escreveStringFormatada(x, y + i*offset,"C: considerar/desconsiderar obliquidade da orbita.\n");
     i += escreveStringFormatada(x, y + i*offset,"O: mostrar/esconder orbitas dos planetas.\n");
     i += escreveStringFormatada(x, y + i*offset,"V: mostrar/esconder eixos ordenados do glut.\n");
-    i += escreveStringFormatada(x, y + i*offset, "\n\nAperte esc para voltar a tela anterior\n");
+    i += escreveStringFormatada(x, y + i*offset,"\n\nAperte esc para voltar a tela anterior\n");
 
     retornaPerspectiva();
 }
@@ -165,7 +170,7 @@ void escreveInformacoes(int x, int y){
 
     projecaoOrto();
 
-    i += escreveStringFormatada(x, y + i*offset, "Informacoes\n");
+    i += escreveStringFormatada(x, y + i*offset, "Informacoes\n\n");
     i += escreveStringFormatada(x, y + i*offset, "Diametro (km) - O diametro do planeta no equador, \na distancia atraves do centro do planeta de um ponto no \nequador ao lado oposto, em quilometros ou milhas.\n\n");
     i +=escreveStringFormatada(x, y+ i*offset,"Distancia do Sol (10^6 km) - Esta e a distancia media \ndo planeta ao Sol em milhoes de quilometros ou \nmilhoes de milhas, tambem conhecida como semi-eixo \nmaior. Todos os planetas tem orbitas elipticas, noo \nperfeitamente circulares; portanto, ha um ponto na \norbita em que o planeta esta mais proximo do Sol, o \nperielio, e um ponto mais distante do Sol, o afelio. \nA distencia media do Sol este a meio caminho entre \nesses dois valores. A distancia media da Terra ao Sol \ne definida como 1 Unidade Astronomica (UA), entao a \ntabela de razao fornece essa distancia em UA.\n\n");
     i += escreveStringFormatada(x, y + i*offset, "Obliquidade em relacao a orbita (graus) - o angulo em \ngraus do eixo de um planeta (a linha imaginaria que \natravessa o centro do planeta dos polos norte a sul) \ne inclinado em relacaoo a uma linha perpendicular a \norbita do planeta em torno do Sol, ao norte polo \ndefinido pela regra da mao direita. Venus gira em uma \ndirecao retrograda, oposta aos outros planetas, entao \na inclinacao e de quase 180 graus, ele e considerado \ngirando com seu \"topo\", ou polo norte apontando \n\"para baixo\" (sul). Urano gira quase de lado em \nrelacao a orbita, Plutão esta apontando ligeiramente \n\"para baixo\". As relacoes com a Terra referem-se ao \neixo sem referencia ao norte ou ao sul.\n\n");
