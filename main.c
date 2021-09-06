@@ -377,7 +377,6 @@ void teclaPressionada(unsigned char key, int x, int y){
 
 //FUNCOES DE POSICIONAR A CAMERA COM O MOUSE: obs: gera muitos callbacks e pesa mais a execucao
 void posicionaCamera(int x, int y) {
-
     if(tela==TELA_PLANETAS){
         xMouse = x;
         yMouse = y;
@@ -455,8 +454,8 @@ int main(int argc, char** argv)
     glutReshapeFunc(redimensionar);
     glutDisplayFunc(desenhaMinhaCena);
     glutKeyboardFunc(teclaPressionada);
-    glutSpecialFunc(SpecialKeys);
-    //Funcoes do mouse se utilizar
+    glutSpecialFunc(SpecialKeys); //funcao da camera via setas e page up, page down do teclado
+    //Funcoes da camera via mouse, se utilizar. O mouse gera muitos callbacks, o que pesa um pouco o programa.
     //glutPassiveMotionFunc(posicionaCamera);
     //glutMouseWheelFunc(rodaMouse);
     glutTimerFunc(0, atualizaCena, 33);

@@ -12,12 +12,13 @@ void normalizarVetor3D(float * vetor3D){
 }
 
 void imprimirInstrucoesConsole(){
+    printf("Para ativar o controle via mouse, e necessario descomentar as funcoes na main e compilar novamente.\nO mouse gera muitos callbacks, o que pesa na execucao.\n");
     printf("Aperte 1, 2, 3 ou 4para alterar a camera\n");
     printf("1: camera \"superior\", 2: camera \"frontal\", 3: camera livre, 4: camera que acompanha o planeta.\n\n");
     printf("CONTROLE DE CAMERA LIVRE:\n");
     printf("W A S D: movimentacao\n");
-    printf("Mexer o cursor: mudar direcao da camera\n");
-    printf("MWHEEL UP: Subir camera, MWHEEL DOWN: Descer camera\n\n");
+    printf("Mexer o cursor/Setas do teclado: mudar direcao da camera\n");
+    printf("MWHEEL UP / Page Up: Subir camera, MWHEEL DOWN / Page Down: Descer camera\n\n");
     printf("CONTROLE DE CAMERA QUE ACOMPANHA:\n");
     printf("Aperta espaco para trocar o planeta.\n\n");
     printf("CONTROLES:\n");
